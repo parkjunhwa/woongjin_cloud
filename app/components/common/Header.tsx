@@ -515,7 +515,7 @@ export const Header = function Header({}: HeaderProps) {
           </div>
         </div>
       </div>
-      {isTabsEnabled && <Tabs />}
+      {isTabsEnabled && <div className="hidden md:block"><Tabs /></div>}
     </header>
   );
 };

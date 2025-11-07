@@ -276,6 +276,23 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
   const [openMenus, setOpenMenus] = React.useState<Record<string, boolean>>({});
   const [hoveredMenu, setHoveredMenu] = React.useState<string | null>(null);
   const hoverTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  // 모바일 해상도 감지 (768px 미만)
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   // 포커스 링 컬러 클래스 생성
   const getFocusRingClass = React.useCallback(() => {
@@ -410,8 +427,8 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
             href={item.href}
             onClick={(e) => {
               e.preventDefault();
-              // 탭 기능이 켜져 있을 때만 탭 기능 사용
-              if (isTabsEnabled) {
+              // 모바일 해상도에서는 탭 기능 사용하지 않음
+              if (!isMobile && isTabsEnabled) {
                 // 대시보드(/)는 home 탭과 동일하므로 home 탭 활성화
                 if (item.href === "/") {
                   setActiveTab("home");
@@ -425,7 +442,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                   router.push(item.href);
                 }
               } else {
-                // 탭 기능이 꺼져 있을 때는 바로 페이지 이동만
+                // 모바일이거나 탭 기능이 꺼져 있을 때는 바로 페이지 이동만
                 router.push(item.href);
               }
             }}
