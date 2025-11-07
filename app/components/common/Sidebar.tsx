@@ -203,7 +203,7 @@ const navItems: NavItem[] = [
 
 export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
   const { isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen } = useSidebar();
-  const { theme } = useTheme();
+  const { theme, colorTheme } = useTheme();
   const { addTab, setActiveTab, isTabsEnabled } = useTabs();
   const router = useRouter();
 
@@ -277,6 +277,31 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
   const [hoveredMenu, setHoveredMenu] = React.useState<string | null>(null);
   const hoverTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // 포커스 링 컬러 클래스 생성
+  const getFocusRingClass = React.useCallback(() => {
+    const colorMap: Record<string, string> = {
+      blue: "focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+      red: "focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2",
+      green: "focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2",
+      yellow: "focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2",
+      purple: "focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2",
+      pink: "focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2",
+      indigo: "focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2",
+      teal: "focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2",
+      orange: "focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+      gray: "focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2",
+      cyan: "focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2",
+      emerald: "focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
+      violet: "focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2",
+      fuchsia: "focus-visible:ring-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-2",
+      rose: "focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2",
+      amber: "focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2",
+      lime: "focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2",
+      sky: "focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
+    };
+    return colorMap[colorTheme] || colorMap.blue;
+  }, [colorTheme]);
+
   // 컴포넌트 언마운트 시 타임아웃 정리
   React.useEffect(() => {
     return () => {
@@ -328,7 +353,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
           <Collapsible.Root open={isChildMenuOpen} onOpenChange={() => toggleMenu(childMenuKey)}>
             <Collapsible.Trigger asChild>
               <button
-                className={`w-full flex items-center justify-between gap-2 px-3 py-2 rounded-sm transition-colors text-left ${isActive
+                className={`w-full flex items-center justify-between gap-2 px-3 py-2 rounded-sm transition-colors text-left focus:outline-none ${getFocusRingClass()} ${isActive
                     ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                   }`}
@@ -342,6 +367,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -367,7 +393,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
             href={item.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex items-center gap-2 px-3 py-2 rounded-sm transition-colors text-sm ${isActive
+            className={`flex items-center gap-2 px-3 py-2 rounded-sm transition-colors text-sm focus:outline-none ${getFocusRingClass()} ${isActive
                 ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
@@ -403,7 +429,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                 router.push(item.href);
               }
             }}
-            className={`flex items-center gap-2 px-3 py-2 rounded-sm transition-colors text-sm ${isActive
+            className={`flex items-center gap-2 px-3 py-2 rounded-sm transition-colors text-sm focus:outline-none ${getFocusRingClass()} ${isActive
                 ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
@@ -434,20 +460,24 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
 
       if (hasChildren) {
         return (
-          <li key={menuKey}>
+          <li key={menuKey} className={isCollapsed && !(isMobileOpen !== undefined && isMobileOpen) ? "flex justify-center" : ""}>
             <Popover.Root open={isHovered} onOpenChange={(open) => !open && setHoveredMenu(null)}>
               <Popover.Trigger asChild>
-                <div
+                <button
+                  type="button"
                   data-sidebar-trigger={menuKey}
                   onMouseEnter={() => handleMouseEnter(menuKey)}
                   onMouseLeave={handleMouseLeave}
-                  className={`sidebar-item flex items-center justify-center px-3 py-2 rounded-sm transition-colors cursor-pointer relative ${isActive
+                  className={`sidebar-item flex items-center justify-center ${isCollapsed && !(isMobileOpen !== undefined && isMobileOpen) ? "" : "w-full"} px-3 py-2 rounded-sm transition-colors cursor-pointer relative focus:outline-none ${getFocusRingClass()} ${isActive
                       ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
+                  aria-label={item.label}
+                  aria-expanded={isHovered}
+                  aria-haspopup="true"
                 >
-                  {item.icon && <span className="flex-shrink-0">{item.icon}</span>}
-                </div>
+                  {item.icon && <span className="flex-shrink-0" aria-hidden="true">{item.icon}</span>}
+                </button>
               </Popover.Trigger>
               <Popover.Portal>
                 <Popover.Content
@@ -474,13 +504,13 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
       }
 
       return (
-        <li key={menuKey}>
+        <li key={menuKey} className={isCollapsed && !(isMobileOpen !== undefined && isMobileOpen) ? "flex justify-center" : ""}>
           {isExternalLink(item.href) ? (
             <a
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`sidebar-item flex items-center justify-center px-3 py-2 rounded-sm transition-colors ${isActive
+              className={`sidebar-item flex items-center justify-center ${isCollapsed && !(isMobileOpen !== undefined && isMobileOpen) ? "" : "w-full"} px-3 py-2 rounded-sm transition-colors focus:outline-none ${getFocusRingClass()} ${isActive
                   ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
                   : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 }`}
@@ -493,12 +523,12 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                 }
               }}
             >
-              {item.icon && <span className="flex-shrink-0">{item.icon}</span>}
+              {item.icon && <span className="flex-shrink-0" aria-hidden="true">{item.icon}</span>}
             </a>
           ) : (
             <Link
               href={item.href}
-              className={`sidebar-item flex items-center justify-center px-3 py-2 rounded-sm transition-colors ${isActive
+              className={`sidebar-item flex items-center justify-center ${isCollapsed && !(isMobileOpen !== undefined && isMobileOpen) ? "" : "w-full"} px-3 py-2 rounded-sm transition-colors focus:outline-none ${getFocusRingClass()} ${isActive
                   ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
                   : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 }`}
@@ -512,7 +542,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                 }
               }}
             >
-              {item.icon && <span className="flex-shrink-0">{item.icon}</span>}
+              {item.icon && <span className="flex-shrink-0" aria-hidden="true">{item.icon}</span>}
             </Link>
           )}
         </li>
@@ -526,7 +556,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
           <Collapsible.Root open={isMenuOpen} onOpenChange={() => toggleMenu(menuKey)}>
             <Collapsible.Trigger asChild>
               <button
-                className={`sidebar-item w-full flex items-center gap-3 px-3 py-2 rounded-sm transition-colors ${depth === 0
+                className={`sidebar-item w-full flex items-center gap-3 px-3 py-2 rounded-sm transition-colors focus:outline-none ${getFocusRingClass()} ${depth === 0
                   ? isActive
                     ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50 active"
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -540,7 +570,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1">
                   {depth === 0 && item.icon && (
-                    <span className="flex-shrink-0">{item.icon}</span>
+                    <span className="flex-shrink-0" aria-hidden="true">{item.icon}</span>
                   )}
                   <span className={`font-medium truncate ${depth === 0 ? "text-sm" : "text-sm"}`}>
                     {item.label}
@@ -551,6 +581,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -577,7 +608,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
             href={item.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`sidebar-item flex items-center gap-3 px-3 py-2 rounded-sm transition-colors ${depth === 0
+            className={`sidebar-item flex items-center gap-3 px-3 py-2 rounded-sm transition-colors focus:outline-none ${getFocusRingClass()} ${depth === 0
                 ? isActive
                   ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50 active"
                   : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -639,7 +670,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                 onMobileClose();
               }
             }}
-            className={`sidebar-item flex items-center gap-3 px-3 py-2 rounded-sm transition-colors ${depth === 0
+            className={`sidebar-item flex items-center gap-3 px-3 py-2 rounded-sm transition-colors focus:outline-none ${getFocusRingClass()} ${depth === 0
                 ? isActive
                   ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50 active"
                   : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -692,7 +723,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
         aria-label="주요 네비게이션"
       >
         {/* 사이드바 헤더 */}
-        <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800 min-h-[64px]">
+        <div className="flex items-center justify-between px-4 h-16 border-b border-gray-200 dark:border-gray-800">
           {(!isCollapsed || (isMobileOpen !== undefined && isMobileOpen)) && (
             <div className="flex items-center gap-2">
               {mounted ? (
@@ -705,7 +736,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                   priority
                 />
               ) : (
-                <div className="h-6 w-[120px] mt-3" />
+                <div className="h-6 w-[120px]" />
               )}
               <span className="font-bold">클라우드</span>
             </div>
