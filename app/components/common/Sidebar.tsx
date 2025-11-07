@@ -532,7 +532,26 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
               title={item.label}
               aria-label={item.label}
               aria-current={isActive ? "page" : undefined}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                // 모바일 해상도에서는 탭 기능 사용하지 않음
+                if (!isMobile && isTabsEnabled) {
+                  // 대시보드(/)는 home 탭과 동일하므로 home 탭 활성화
+                  if (item.href === "/") {
+                    setActiveTab("home");
+                    router.push("/");
+                  } else {
+                    addTab({
+                      id: item.href,
+                      label: item.label,
+                      href: item.href,
+                    });
+                    router.push(item.href);
+                  }
+                } else {
+                  // 모바일이거나 탭 기능이 꺼져 있을 때는 바로 페이지 이동만
+                  router.push(item.href);
+                }
                 // 모바일에서 메뉴 클릭 시 사이드바 닫기
                 if (isMobileOpen && onMobileClose) {
                   onMobileClose();
