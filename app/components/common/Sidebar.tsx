@@ -252,6 +252,8 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                   }`}
                 style={{ paddingLeft: `${8 + (depth - 1) * 16}px` }}
+                aria-expanded={isChildMenuOpen}
+                aria-controls={`submenu-${childMenuKey}`}
               >
                 <span className="text-sm font-medium truncate min-w-0 flex-1">{item.label}</span>
                 <svg
@@ -264,8 +266,11 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                 </svg>
               </button>
             </Collapsible.Trigger>
-            <Collapsible.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
-              <ul className="pt-1 space-y-1">
+            <Collapsible.Content 
+              id={`submenu-${childMenuKey}`}
+              className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+            >
+              <ul className="pt-1 space-y-1" role="list">
                 {item.children?.map((child) => renderSubMenu(child, depth + 1))}
               </ul>
             </Collapsible.Content>
@@ -304,6 +309,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
               : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
             }`}
           style={{ paddingLeft: `${8 + (depth - 1) * 16}px` }}
+          aria-current={isActive ? "page" : undefined}
         >
           <span className="font-medium truncate min-w-0 flex-1">{item.label}</span>
         </Link>
@@ -376,6 +382,8 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               }`}
             title={item.label}
+            aria-label={item.label}
+            aria-current={isActive ? "page" : undefined}
             onClick={() => {
               // 모바일에서 메뉴 클릭 시 사이드바 닫기
               if (isMobileOpen && onMobileClose) {
@@ -405,6 +413,8 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                     : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                 }`}
                 style={{ paddingLeft: `${12 + depth * 16}px` }}
+                aria-expanded={isMenuOpen}
+                aria-controls={`submenu-${menuKey}`}
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1">
                   {depth === 0 && item.icon && (
@@ -424,8 +434,11 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                 </svg>
               </button>
             </Collapsible.Trigger>
-            <Collapsible.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
-              <ul className="pt-1 space-y-1">
+            <Collapsible.Content 
+              id={`submenu-${menuKey}`}
+              className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+            >
+              <ul className="pt-1 space-y-1" role="list">
                 {item.children?.map((child) => renderMenuItem(child, depth + 1))}
               </ul>
             </Collapsible.Content>
@@ -512,6 +525,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
               : "-translate-x-full md:translate-x-0 z-40"
             : "z-40"
           }`}
+        aria-label="주요 네비게이션"
       >
         {/* 사이드바 헤더 */}
         <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800 min-h-[64px]">
@@ -538,6 +552,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
             }}
             className="p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 transition-colors"
             aria-label={isMobileOpen ? "사이드바 닫기" : isCollapsed ? "사이드바 펼치기" : "사이드바 접기"}
+            aria-expanded={!isCollapsed}
           >
             {/* 모바일에서 메뉴가 열렸을 때는 X 아이콘 */}
             {isMobileOpen !== undefined && isMobileOpen ? (

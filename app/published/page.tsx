@@ -44,7 +44,10 @@ export default function PublishedPage() {
       <div className={`transition-all duration-300 ${isCollapsed ? "md:ml-16" : "md:ml-64"}`}>
         <Header />
         
-        <main className="w-full px-6 py-4">
+        <main id="main-content" className="w-full px-6 py-4" role="main" aria-label="메인 콘텐츠">
+        {/* 스크린 리더용 동적 콘텐츠 알림 영역 */}
+        <div id="aria-live-region" aria-live="polite" aria-atomic="true" className="sr-only"></div>
+        <h1 className="sr-only">퍼블리싱 샘플 페이지</h1>
         {/* Breadcrumb */}
         <nav className="mb-3" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2 text-sm">
@@ -65,9 +68,9 @@ export default function PublishedPage() {
         </nav>
 
         <div className="mb-4">
-          <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
             퍼블리싱 샘플 페이지
-          </h1>
+          </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400">
             퍼블리싱된 화면들을 모아서 관리하는 샘플 페이지입니다.
           </p>

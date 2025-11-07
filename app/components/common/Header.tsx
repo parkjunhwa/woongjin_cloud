@@ -155,15 +155,16 @@ export const Header = function Header({}: HeaderProps) {
                 <Tooltip.Provider>
                   <Tooltip.Root>
                     <Tooltip.Trigger asChild>
-                      <button
-                        onClick={toggleTabs}
-                        className={`rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${
-                          isTabsEnabled
-                            ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
-                            : "text-gray-700 dark:text-gray-300"
-                        }`}
-                        aria-label="탭 기능 토글"
-                      >
+            <button
+              onClick={toggleTabs}
+              className={`rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${
+                isTabsEnabled
+                  ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                  : "text-gray-700 dark:text-gray-300"
+              }`}
+              aria-label="탭 기능 토글"
+              aria-pressed={isTabsEnabled}
+            >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                         </svg>
@@ -192,6 +193,7 @@ export const Header = function Header({}: HeaderProps) {
                           <button
                             className="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
                             aria-label="컬러 팔레트"
+                            aria-expanded={colorPaletteOpen}
                           >
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
@@ -259,6 +261,7 @@ export const Header = function Header({}: HeaderProps) {
                           <button
                             className="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
                             aria-label="테마 선택"
+                            aria-expanded={undefined}
                           >
                             {theme === "light" ? (
                               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -351,11 +354,12 @@ export const Header = function Header({}: HeaderProps) {
                 <Tooltip.Provider>
                   <Tooltip.Root>
                     <Tooltip.Trigger asChild>
-                      <button
-                        onClick={toggleFullscreen}
-                        className="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
-                        aria-label={isFullscreen ? "전체화면 종료" : "전체화면"}
-                      >
+                        <button
+                          onClick={toggleFullscreen}
+                          className="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+                          aria-label={isFullscreen ? "전체화면 종료" : "전체화면"}
+                          aria-pressed={isFullscreen}
+                        >
                   {isFullscreen ? (
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25" />
@@ -389,6 +393,7 @@ export const Header = function Header({}: HeaderProps) {
                         <button
                           className="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
                           aria-label="검색"
+                          aria-expanded={searchOpen}
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

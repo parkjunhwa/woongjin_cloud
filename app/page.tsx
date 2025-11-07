@@ -409,7 +409,10 @@ export default function Dashboard() {
         <div className={`transition-all duration-300 ${isCollapsed ? "md:ml-16" : "md:ml-64"}`}>
           <Header />
 
-          <main className="w-full px-6 py-6">
+          <main id="main-content" className="w-full px-6 py-6" role="main" aria-label="메인 콘텐츠">
+          {/* 스크린 리더용 동적 콘텐츠 알림 영역 */}
+          <div id="aria-live-region" aria-live="polite" aria-atomic="true" className="sr-only"></div>
+          <h1 className="sr-only">Radix UI 컴포넌트 대시보드</h1>
           <div className="w-full flex flex-col gap-3 mb-3">
             {/* Color Palette */}
             <Card title="">
@@ -2825,35 +2828,38 @@ export default function Dashboard() {
                   <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">필수 항목 표시</h3>
                   <div className="flex flex-col gap-2">
                     <Label.Root htmlFor="email-required" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      이메일 주소 <span className="text-red-500">*</span>
+                      이메일 주소 <span className="text-red-500" aria-label="필수 항목">*</span>
                     </Label.Root>
                     <input
                       id="email-required"
                       type="email"
                       placeholder="email@example.com"
                       className="h-[32px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                      aria-required="true"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
                     <Label.Root htmlFor="password-required" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      비밀번호 <span className="text-red-500">*</span>
+                      비밀번호 <span className="text-red-500" aria-label="필수 항목">*</span>
                     </Label.Root>
                     <input
                       id="password-required"
                       type="password"
                       placeholder="••••••••"
                       className="h-[32px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                      aria-required="true"
                     />
                   </div>
                   <div className="flex items-center gap-2">
                     <Label.Root htmlFor="email-horizontal" className="text-sm font-medium text-gray-700 dark:text-gray-300 shrink-0">
-                      전화번호 <span className="text-red-500">*</span>
+                      전화번호 <span className="text-red-500" aria-label="필수 항목">*</span>
                     </Label.Root>
                     <input
                       id="phone-required-horizontal"
                       type="tel"
                       placeholder="010-1234-5678"
                       className="flex-1 h-[32px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                      aria-required="true"
                     />
                   </div>
                 </div>
@@ -2913,6 +2919,7 @@ export default function Dashboard() {
                     <NavigationMenu.Link
                       href="#"
                       className="inline-flex h-[32px] items-center rounded-sm px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                      aria-label="홈 메뉴 (데모용)"
                     >
                       홈
                     </NavigationMenu.Link>
@@ -2921,6 +2928,7 @@ export default function Dashboard() {
                     <NavigationMenu.Link
                       href="#"
                       className="inline-flex h-[32px] items-center rounded-sm px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                      aria-label="소개 메뉴 (데모용)"
                     >
                       소개
                     </NavigationMenu.Link>
@@ -2933,18 +2941,21 @@ export default function Dashboard() {
                       <NavigationMenu.Link
                         href="#"
                         className="block rounded px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                        aria-label="제품 1 메뉴 (데모용)"
                       >
                         제품 1
                       </NavigationMenu.Link>
                       <NavigationMenu.Link
                         href="#"
                         className="block rounded px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                        aria-label="제품 2 메뉴 (데모용)"
                       >
                         제품 2
                       </NavigationMenu.Link>
                       <NavigationMenu.Link
                         href="#"
                         className="block rounded px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                        aria-label="제품 3 메뉴 (데모용)"
                       >
                         제품 3
                       </NavigationMenu.Link>
@@ -2954,6 +2965,7 @@ export default function Dashboard() {
                     <NavigationMenu.Link
                       href="#"
                       className="inline-flex h-[32px] items-center rounded-sm px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                      aria-label="연락처 메뉴 (데모용)"
                     >
                       연락처
                     </NavigationMenu.Link>
@@ -4137,7 +4149,7 @@ export default function Dashboard() {
                     <Tooltip.Provider>
                       <Tooltip.Root>
                         <Tooltip.Trigger asChild>
-                          <a href="#" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 underline text-sm">
+                          <a href="#" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 underline text-sm" aria-label="샘플 링크 (데모용)">
                             링크
                           </a>
                         </Tooltip.Trigger>
@@ -4303,20 +4315,21 @@ export default function Dashboard() {
                 {/* 검증 전 (normal) 예시 */}
                 <div className="flex flex-col gap-2">
                   <Label.Root htmlFor="email-normal" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    이메일 주소 <span className="text-red-500">*</span>
+                    이메일 주소 <span className="text-red-500" aria-label="필수 항목">*</span>
                   </Label.Root>
                   <input
                     id="email-normal"
                     type="email"
                     placeholder="email@example.com"
                     className="h-[32px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                    aria-required="true"
                   />
                 </div>
 
                 {/* 검증 에러 예시 */}
                 <div className="flex flex-col gap-2">
                   <Label.Root htmlFor="email-validation" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    이메일 주소 <span className="text-red-500">*</span>
+                    이메일 주소 <span className="text-red-500" aria-label="필수 항목">*</span>
                   </Label.Root>
                   <input
                     id="email-validation"
@@ -4324,9 +4337,12 @@ export default function Dashboard() {
                     placeholder="email@example.com"
                     className="h-[32px] rounded-sm border border-red-500 dark:border-red-500 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                     defaultValue="invalid-email"
+                    aria-invalid="true"
+                    aria-required="true"
+                    aria-describedby="email-validation-error"
                   />
-                  <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <p id="email-validation-error" className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1" role="alert">
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     올바른 이메일 형식이 아닙니다
@@ -4336,7 +4352,7 @@ export default function Dashboard() {
                 {/* 비밀번호 검증 에러 */}
                 <div className="flex flex-col gap-2">
                   <Label.Root htmlFor="password-validation" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    비밀번호 <span className="text-red-500">*</span>
+                    비밀번호 <span className="text-red-500" aria-label="필수 항목">*</span>
                   </Label.Root>
                   <input
                     id="password-validation"
@@ -4344,9 +4360,12 @@ export default function Dashboard() {
                     placeholder="••••••••"
                     className="h-[32px] rounded-sm border border-red-500 dark:border-red-500 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                     defaultValue="123"
+                    aria-invalid="true"
+                    aria-required="true"
+                    aria-describedby="password-validation-error"
                   />
-                  <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <p id="password-validation-error" className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1" role="alert">
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     비밀번호는 최소 8자 이상이어야 합니다
@@ -4356,7 +4375,7 @@ export default function Dashboard() {
                 {/* 전화번호 검증 에러 */}
                 <div className="flex flex-col gap-2">
                   <Label.Root htmlFor="phone-validation" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    전화번호 <span className="text-red-500">*</span>
+                    전화번호 <span className="text-red-500" aria-label="필수 항목">*</span>
                   </Label.Root>
                   <input
                     id="phone-validation"
@@ -4364,9 +4383,12 @@ export default function Dashboard() {
                     placeholder="010-1234-5678"
                     className="h-[32px] rounded-sm border border-red-500 dark:border-red-500 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                     defaultValue="123"
+                    aria-invalid="true"
+                    aria-required="true"
+                    aria-describedby="phone-validation-error"
                   />
-                  <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <p id="phone-validation-error" className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1" role="alert">
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     올바른 전화번호 형식이 아닙니다 (예: 010-1234-5678)
@@ -4376,7 +4398,7 @@ export default function Dashboard() {
                 {/* 이름 검증 에러 */}
                 <div className="flex flex-col gap-2">
                   <Label.Root htmlFor="name-validation" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    이름 <span className="text-red-500">*</span>
+                    이름 <span className="text-red-500" aria-label="필수 항목">*</span>
                   </Label.Root>
                   <input
                     id="name-validation"
@@ -4384,9 +4406,12 @@ export default function Dashboard() {
                     placeholder="홍길동"
                     className="h-[32px] rounded-sm border border-red-500 dark:border-red-500 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                     defaultValue=""
+                    aria-invalid="true"
+                    aria-required="true"
+                    aria-describedby="name-validation-error"
                   />
-                  <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <p id="name-validation-error" className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1" role="alert">
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     이름을 입력해주세요
@@ -4404,9 +4429,10 @@ export default function Dashboard() {
                     placeholder="사용자명"
                     className="h-[32px] rounded-sm border border-green-500 dark:border-green-500 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                     defaultValue="validuser"
+                    aria-describedby="success-validation-message"
                   />
-                  <p className="text-xs text-green-500 dark:text-green-400 flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <p id="success-validation-message" className="text-xs text-green-500 dark:text-green-400 flex items-center gap-1">
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     사용 가능한 사용자명입니다
@@ -4418,7 +4444,7 @@ export default function Dashboard() {
                   <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">좌우 배치 (에러)</h3>
                   <div className="flex items-start gap-2">
                     <Label.Root htmlFor="email-horizontal-validation" className="text-sm font-medium text-gray-700 dark:text-gray-300 shrink-0 pt-2">
-                      이메일 <span className="text-red-500">*</span>
+                      이메일 <span className="text-red-500" aria-label="필수 항목">*</span>
                     </Label.Root>
                     <div className="flex-1 flex flex-col gap-2">
                       <input
@@ -4427,9 +4453,12 @@ export default function Dashboard() {
                         placeholder="email@example.com"
                         className="h-[32px] rounded-sm border border-red-500 dark:border-red-500 bg-white dark:bg-gray-900 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                         defaultValue="wrong-email"
+                        aria-invalid="true"
+                        aria-required="true"
+                        aria-describedby="email-horizontal-validation-error"
                       />
-                      <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1">
-                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <p id="email-horizontal-validation-error" className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1" role="alert">
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         올바른 이메일 형식이 아닙니다

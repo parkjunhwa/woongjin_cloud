@@ -31,24 +31,30 @@
   }
 }
 
+// 테마 컬러 적용
 .rdp-chevron {
-  fill: #3b82f6 !important;
+  fill: var(--color-primary-500) !important;
+}
+
+.rdp-button_previous:hover .rdp-chevron,
+.rdp-button_next:hover .rdp-chevron {
+  fill: var(--color-primary-600) !important;
 }
 
 .rdp-today {
-  color: #3b82f6 !important;
+  color: var(--color-primary-500) !important;
 }
 
 .rdp-selected {
-  border-color: #3b82f6 !important;
+  border-color: var(--color-primary-500) !important;
 }
 
 .rdp-today:not(.rdp-outside) {
-  border-color: #3b82f6 !important;
+  border-color: var(--color-primary-500) !important;
 }
 
 .rdp-root {
-  --accent-color: #3b82f6 !important;
+  --accent-color: var(--color-primary-500) !important;
 }
 
 .rdp-day_range_middle,
@@ -59,12 +65,12 @@
 
 .rdp-range_start .rdp-day_button,
 .rdp-range_end .rdp-day_button {
-  background-color: #3b82f6 !important;
+  background-color: var(--color-primary-500) !important;
   font-size: 14px !important;
 }
 
 .rdp-selected .rdp-day_button {
-  border-color: #3b82f6 !important;
+  border-color: var(--color-primary-500) !important;
   font-size: 14px !important;
 }
 
@@ -78,12 +84,12 @@ button.rdp-day.rdp-day-sunday {
   color: #ef4444 !important; // red-500
 }
 
-// 토요일 - blue-500
+// 토요일 - blue-500 (항상 blue로 고정)
 .rdp-day.rdp-day-saturday,
 .rdp-day-saturday,
 .rdp-day-saturday .rdp-day,
 .rdp-day-saturday button,
 button.rdp-day.rdp-day-saturday {
-  color: #3b82f6 !important; // blue-500
+  color: #3b82f6 !important; // blue-500 고정
 }
 

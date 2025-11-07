@@ -1,0 +1,18 @@
+// 스크린 리더 전용 클래스 (시각적으로는 숨김, 스크린 리더는 읽음)
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// 텍스트 크기 조절 기능
+.text-size-adjustable {
+  font-size: var(--text-size, 1rem);
+}
+

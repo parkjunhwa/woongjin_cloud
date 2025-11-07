@@ -271,7 +271,7 @@ export default function Login2Page() {
             {/* 이메일 입력 */}
             <div>
               <label htmlFor="email2" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                이메일
+                이메일 <span className="text-red-500" aria-label="필수 항목">*</span>
               </label>
               <input
                 id="email2"
@@ -281,13 +281,14 @@ export default function Login2Page() {
                 required
                 className={`w-full h-[40px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${themeColors.focusRing} focus:border-transparent`}
                 placeholder="이메일을 입력하세요"
+                aria-required="true"
               />
             </div>
 
             {/* 비밀번호 입력 */}
             <div>
               <label htmlFor="password2" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                비밀번호
+                비밀번호 <span className="text-red-500" aria-label="필수 항목">*</span>
               </label>
               <input
                 id="password2"
@@ -297,6 +298,7 @@ export default function Login2Page() {
                 required
                 className={`w-full h-[40px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${themeColors.focusRing} focus:border-transparent`}
                 placeholder="비밀번호를 입력하세요"
+                aria-required="true"
               />
             </div>
 
