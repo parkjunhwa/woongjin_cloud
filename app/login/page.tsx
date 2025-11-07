@@ -234,7 +234,7 @@ export default function LoginPage() {
           <div className="flex justify-center mb-8">
             <Image
               src="/images/logo_b.svg"
-              alt="woongjin cloud"
+              alt="웅진클라우드 로고"
               width={150}
               height={40}
               className="h-10 w-auto dark:hidden"
@@ -242,7 +242,7 @@ export default function LoginPage() {
             />
             <Image
               src="/images/logo_w.svg"
-              alt="woongjin cloud"
+              alt="웅진클라우드 로고"
               width={150}
               height={40}
               className="h-10 w-auto hidden dark:block"

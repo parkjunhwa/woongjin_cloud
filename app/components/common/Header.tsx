@@ -79,8 +79,11 @@ export const Header = function Header({}: HeaderProps) {
             {/* 사용자 정보 */}
             <Popover.Root open={userMenuOpen} onOpenChange={setUserMenuOpen}>
               <Popover.Trigger asChild>
-                <div 
-                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                <button
+                  type="button"
+                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm px-1 py-1"
+                  aria-label="사용자 메뉴"
+                  aria-expanded={userMenuOpen}
                   onMouseEnter={() => {
                     if (userMenuTimeoutRef.current) {
                       clearTimeout(userMenuTimeoutRef.current);
@@ -94,15 +97,15 @@ export const Header = function Header({}: HeaderProps) {
                     }, 150);
                   }}
                 >
-                  <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center" aria-hidden="true">
                     <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                   </div>
-                  <div className="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                  <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                     홍길동/사업부서명
-                  </div>
-                </div>
+                  </span>
+                </button>
               </Popover.Trigger>
               <Popover.Portal>
                 <Popover.Content
@@ -429,14 +432,18 @@ export const Header = function Header({}: HeaderProps) {
                   >
                     <form onSubmit={handleSearch} className="flex flex-col gap-3">
                       <div className="relative">
+                        <label htmlFor="header-search-input" className="sr-only">
+                          검색어 입력
+                        </label>
                         <input
                           id="header-search-input"
-                          type="text"
+                          type="search"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
                           placeholder="검색어를 입력하세요"
                           className="w-full h-[32px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 pl-4 pr-10 text-sm text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                           autoFocus
+                          aria-label="검색어 입력"
                         />
                         {searchQuery && (
                           <button

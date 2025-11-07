@@ -1903,7 +1903,7 @@ export default function Dashboard() {
                 <Avatar.Root className="inline-flex h-12 w-12 select-none items-center justify-center overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800 align-middle ring-2 ring-gray-300 dark:ring-gray-700">
                   <Avatar.Image
                     src="https://i.pravatar.cc/150?img=1"
-                    alt="Avatar"
+                    alt="샘플 사용자 프로필 이미지"
                     className="h-full w-full object-cover"
                   />
                   <Avatar.Fallback className="flex h-full w-full items-center justify-center bg-gray-300 dark:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -1913,7 +1913,7 @@ export default function Dashboard() {
                 <Avatar.Root className="inline-flex h-16 w-16 select-none items-center justify-center overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800 align-middle ring-2 ring-blue-500">
                   <Avatar.Image
                     src="https://i.pravatar.cc/150?img=2"
-                    alt="Avatar"
+                    alt="샘플 사용자 프로필 이미지"
                     className="h-full w-full object-cover"
                   />
                   <Avatar.Fallback className="flex h-full w-full items-center justify-center bg-blue-500 text-white text-base font-medium">
@@ -2698,7 +2698,7 @@ export default function Dashboard() {
                       <Avatar.Root style={{ minWidth: "40px", height: "40px" }} className="rounded-full bg-gray-200 dark:bg-gray-800 ring-2 ring-gray-300 dark:ring-gray-700 overflow-hidden flex items-center justify-center">
                         <Avatar.Image
                           src="https://i.pravatar.cc/150?img=2"
-                          alt="Avatar"
+                          alt="John Doe의 프로필 사진"
                           className="w-full h-full object-cover"
                         />
                       </Avatar.Root>
