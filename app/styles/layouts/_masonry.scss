@@ -1,0 +1,100 @@
+// Masonry Grid - 해상도별 컬럼 수 조정
+// Tailwind spacing scale 기반: gap-4 = 1rem, gap-3 = 0.75rem
+.masonry-grid {
+  columns: 1;
+  column-gap: 0.75rem; // Tailwind gap-3
+  
+  // 상하 간격 (Tailwind gap-3 = 0.75rem)
+  > * {
+    margin-bottom: 0.75rem; // Tailwind gap-3
+  }
+
+  // 두 배 폭 카드 (모든 컬럼에 걸침)
+  .card-wide {
+    column-span: all;
+    break-inside: avoid;
+  }
+
+  .column-span-all {
+    column-span: all;
+  }
+}
+
+// 반응형 컬럼 수 조정
+// Small screens (640px 이상)
+@media (min-width: 640px) {
+  .masonry-grid {
+    columns: 2;
+  }
+}
+
+// Medium screens (768px 이상)
+@media (min-width: 768px) {
+  .masonry-grid {
+    columns: 3;
+  }
+}
+
+// Large screens (1024px 이상)
+@media (min-width: 1024px) {
+  .masonry-grid {
+    columns: 4;
+  }
+}
+
+// XL screens (1280px 이상)
+@media (min-width: 1280px) {
+  .masonry-grid {
+    columns: 5;
+  }
+}
+
+// 2XL screens (1536px 이상)
+@media (min-width: 1536px) {
+  .masonry-grid {
+    columns: 6;
+  }
+}
+
+// 3XL screens (1920px 이상) - 7단
+@media (min-width: 1920px) {
+  .masonry-grid {
+    columns: 7;
+  }
+}
+
+// 4XL screens (2560px 이상) - 8단
+@media (min-width: 2560px) {
+  .masonry-grid {
+    columns: 8;
+  }
+}
+
+// 5XL screens (3200px 이상) - 9단
+@media (min-width: 3200px) {
+  .masonry-grid {
+    columns: 9;
+  }
+}
+
+// 6XL screens (3840px 이상) - 10단
+@media (min-width: 3840px) {
+  .masonry-grid {
+    columns: 10;
+  }
+}
+
+// 7XL screens (4480px 이상) - 11단
+@media (min-width: 4480px) {
+  .masonry-grid {
+    columns: 11;
+  }
+}
+
+// 8XL screens (5120px 이상) - 12단
+@media (min-width: 5120px) {
+  .masonry-grid {
+    columns: 12;
+  }
+}
+

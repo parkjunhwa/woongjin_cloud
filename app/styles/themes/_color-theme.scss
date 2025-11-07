@@ -1,0 +1,430 @@
+// 컬러 테마 CSS 변수 - 모든 명암도 정의
+:root {
+  // Blue 기본값
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+}
+
+// 각 컬러 테마별 CSS 변수 설정
+[data-color-theme="blue"] {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+}
+
+[data-color-theme="red"] {
+  --color-primary-50: #fef2f2;
+  --color-primary-100: #fee2e2;
+  --color-primary-200: #fecaca;
+  --color-primary-300: #fca5a5;
+  --color-primary-400: #f87171;
+  --color-primary-500: #ef4444;
+  --color-primary-600: #dc2626;
+  --color-primary-700: #b91c1c;
+  --color-primary-800: #991b1b;
+  --color-primary-900: #7f1d1d;
+  --color-primary-950: #450a0a;
+}
+
+[data-color-theme="green"] {
+  --color-primary-50: #f0fdf4;
+  --color-primary-100: #dcfce7;
+  --color-primary-200: #bbf7d0;
+  --color-primary-300: #86efac;
+  --color-primary-400: #4ade80;
+  --color-primary-500: #22c55e;
+  --color-primary-600: #16a34a;
+  --color-primary-700: #15803d;
+  --color-primary-800: #166534;
+  --color-primary-900: #14532d;
+  --color-primary-950: #052e16;
+}
+
+[data-color-theme="yellow"] {
+  --color-primary-50: #fefce8;
+  --color-primary-100: #fef9c3;
+  --color-primary-200: #fef08a;
+  --color-primary-300: #fde047;
+  --color-primary-400: #facc15;
+  --color-primary-500: #eab308;
+  --color-primary-600: #ca8a04;
+  --color-primary-700: #a16207;
+  --color-primary-800: #854d0e;
+  --color-primary-900: #713f12;
+  --color-primary-950: #422006;
+}
+
+[data-color-theme="purple"] {
+  --color-primary-50: #faf5ff;
+  --color-primary-100: #f3e8ff;
+  --color-primary-200: #e9d5ff;
+  --color-primary-300: #d8b4fe;
+  --color-primary-400: #c084fc;
+  --color-primary-500: #a855f7;
+  --color-primary-600: #9333ea;
+  --color-primary-700: #7e22ce;
+  --color-primary-800: #6b21a8;
+  --color-primary-900: #581c87;
+  --color-primary-950: #3b0764;
+}
+
+[data-color-theme="pink"] {
+  --color-primary-50: #fdf2f8;
+  --color-primary-100: #fce7f3;
+  --color-primary-200: #fbcfe8;
+  --color-primary-300: #f9a8d4;
+  --color-primary-400: #f472b6;
+  --color-primary-500: #ec4899;
+  --color-primary-600: #db2777;
+  --color-primary-700: #be185d;
+  --color-primary-800: #9f1239;
+  --color-primary-900: #831843;
+  --color-primary-950: #500724;
+}
+
+[data-color-theme="indigo"] {
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+  --color-primary-950: #1e1b4b;
+}
+
+[data-color-theme="teal"] {
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-200: #99f6e4;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-primary-700: #0f766e;
+  --color-primary-800: #115e59;
+  --color-primary-900: #134e4a;
+  --color-primary-950: #042f2e;
+}
+
+[data-color-theme="orange"] {
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+  --color-primary-950: #431407;
+}
+
+[data-color-theme="gray"] {
+  --color-primary-50: #f9fafb;
+  --color-primary-100: #f3f4f6;
+  --color-primary-200: #e5e7eb;
+  --color-primary-300: #d1d5db;
+  --color-primary-400: #9ca3af;
+  --color-primary-500: #6b7280;
+  --color-primary-600: #4b5563;
+  --color-primary-700: #374151;
+  --color-primary-800: #1f2937;
+  --color-primary-900: #111827;
+  --color-primary-950: #030712;
+}
+
+[data-color-theme="cyan"] {
+  --color-primary-50: #ecfeff;
+  --color-primary-100: #cffafe;
+  --color-primary-200: #a5f3fc;
+  --color-primary-300: #67e8f9;
+  --color-primary-400: #22d3ee;
+  --color-primary-500: #06b6d4;
+  --color-primary-600: #0891b2;
+  --color-primary-700: #0e7490;
+  --color-primary-800: #155e75;
+  --color-primary-900: #164e63;
+  --color-primary-950: #083344;
+}
+
+[data-color-theme="emerald"] {
+  --color-primary-50: #ecfdf5;
+  --color-primary-100: #d1fae5;
+  --color-primary-200: #a7f3d0;
+  --color-primary-300: #6ee7b7;
+  --color-primary-400: #34d399;
+  --color-primary-500: #10b981;
+  --color-primary-600: #059669;
+  --color-primary-700: #047857;
+  --color-primary-800: #065f46;
+  --color-primary-900: #064e3b;
+  --color-primary-950: #022c22;
+}
+
+[data-color-theme="violet"] {
+  --color-primary-50: #f5f3ff;
+  --color-primary-100: #ede9fe;
+  --color-primary-200: #ddd6fe;
+  --color-primary-300: #c4b5fd;
+  --color-primary-400: #a78bfa;
+  --color-primary-500: #8b5cf6;
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6d28d9;
+  --color-primary-800: #5b21b6;
+  --color-primary-900: #4c1d95;
+  --color-primary-950: #2e1065;
+}
+
+[data-color-theme="fuchsia"] {
+  --color-primary-50: #fdf4ff;
+  --color-primary-100: #fae8ff;
+  --color-primary-200: #f5d0fe;
+  --color-primary-300: #f0abfc;
+  --color-primary-400: #e879f9;
+  --color-primary-500: #d946ef;
+  --color-primary-600: #c026d3;
+  --color-primary-700: #a21caf;
+  --color-primary-800: #86198f;
+  --color-primary-900: #701a75;
+  --color-primary-950: #4a044e;
+}
+
+[data-color-theme="rose"] {
+  --color-primary-50: #fff1f2;
+  --color-primary-100: #ffe4e6;
+  --color-primary-200: #fecdd3;
+  --color-primary-300: #fda4af;
+  --color-primary-400: #fb7185;
+  --color-primary-500: #f43f5e;
+  --color-primary-600: #e11d48;
+  --color-primary-700: #be123c;
+  --color-primary-800: #9f1239;
+  --color-primary-900: #881337;
+  --color-primary-950: #4c0519;
+}
+
+[data-color-theme="amber"] {
+  --color-primary-50: #fffbeb;
+  --color-primary-100: #fef3c7;
+  --color-primary-200: #fde68a;
+  --color-primary-300: #fcd34d;
+  --color-primary-400: #fbbf24;
+  --color-primary-500: #f59e0b;
+  --color-primary-600: #d97706;
+  --color-primary-700: #b45309;
+  --color-primary-800: #92400e;
+  --color-primary-900: #78350f;
+  --color-primary-950: #451a03;
+}
+
+[data-color-theme="lime"] {
+  --color-primary-50: #f7fee7;
+  --color-primary-100: #ecfccb;
+  --color-primary-200: #d9f99d;
+  --color-primary-300: #bef264;
+  --color-primary-400: #a3e635;
+  --color-primary-500: #84cc16;
+  --color-primary-600: #65a30d;
+  --color-primary-700: #4d7c0f;
+  --color-primary-800: #365314;
+  --color-primary-900: #365314;
+  --color-primary-950: #1a2e05;
+}
+
+[data-color-theme="sky"] {
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+  --color-primary-950: #082f49;
+}
+
+// Blue 컬러 클래스를 CSS 변수로 재정의
+.bg-blue-50 { background-color: var(--color-primary-50) !important; }
+.bg-blue-100 { background-color: var(--color-primary-100) !important; }
+.bg-blue-200 { background-color: var(--color-primary-200) !important; }
+.bg-blue-300 { background-color: var(--color-primary-300) !important; }
+.bg-blue-400 { background-color: var(--color-primary-400) !important; }
+.bg-blue-500 { background-color: var(--color-primary-500) !important; }
+.bg-blue-600 { background-color: var(--color-primary-600) !important; }
+.bg-blue-700 { background-color: var(--color-primary-700) !important; }
+.bg-blue-800 { background-color: var(--color-primary-800) !important; }
+.bg-blue-900 { background-color: var(--color-primary-900) !important; }
+.bg-blue-950 { background-color: var(--color-primary-950) !important; }
+
+.text-blue-50 { color: var(--color-primary-50) !important; }
+.text-blue-100 { color: var(--color-primary-100) !important; }
+.text-blue-200 { color: var(--color-primary-200) !important; }
+.text-blue-300 { color: var(--color-primary-300) !important; }
+.text-blue-400 { color: var(--color-primary-400) !important; }
+.text-blue-500 { color: var(--color-primary-500) !important; }
+.text-blue-600 { color: var(--color-primary-600) !important; }
+.text-blue-700 { color: var(--color-primary-700) !important; }
+.text-blue-800 { color: var(--color-primary-800) !important; }
+.text-blue-900 { color: var(--color-primary-900) !important; }
+.text-blue-950 { color: var(--color-primary-950) !important; }
+
+.border-blue-50 { border-color: var(--color-primary-50) !important; }
+.border-blue-100 { border-color: var(--color-primary-100) !important; }
+.border-blue-200 { border-color: var(--color-primary-200) !important; }
+.border-blue-300 { border-color: var(--color-primary-300) !important; }
+.border-blue-400 { border-color: var(--color-primary-400) !important; }
+.border-blue-500 { border-color: var(--color-primary-500) !important; }
+.border-blue-600 { border-color: var(--color-primary-600) !important; }
+.border-blue-700 { border-color: var(--color-primary-700) !important; }
+.border-blue-800 { border-color: var(--color-primary-800) !important; }
+.border-blue-900 { border-color: var(--color-primary-900) !important; }
+.border-blue-950 { border-color: var(--color-primary-950) !important; }
+
+.ring-blue-50 { --tw-ring-color: var(--color-primary-50) !important; }
+.ring-blue-100 { --tw-ring-color: var(--color-primary-100) !important; }
+.ring-blue-200 { --tw-ring-color: var(--color-primary-200) !important; }
+.ring-blue-300 { --tw-ring-color: var(--color-primary-300) !important; }
+.ring-blue-400 { --tw-ring-color: var(--color-primary-400) !important; }
+.ring-blue-500 { --tw-ring-color: var(--color-primary-500) !important; }
+.ring-blue-600 { --tw-ring-color: var(--color-primary-600) !important; }
+.ring-blue-700 { --tw-ring-color: var(--color-primary-700) !important; }
+.ring-blue-800 { --tw-ring-color: var(--color-primary-800) !important; }
+.ring-blue-900 { --tw-ring-color: var(--color-primary-900) !important; }
+.ring-blue-950 { --tw-ring-color: var(--color-primary-950) !important; }
+
+// Dark mode variants
+.dark .bg-blue-50 { background-color: var(--color-primary-950) !important; }
+.dark .bg-blue-100 { background-color: var(--color-primary-900) !important; }
+.dark .bg-blue-200 { background-color: var(--color-primary-800) !important; }
+.dark .bg-blue-300 { background-color: var(--color-primary-700) !important; }
+.dark .bg-blue-400 { background-color: var(--color-primary-600) !important; }
+.dark .bg-blue-500 { background-color: var(--color-primary-500) !important; }
+.dark .bg-blue-600 { background-color: var(--color-primary-600) !important; }
+.dark .bg-blue-700 { background-color: var(--color-primary-700) !important; }
+.dark .bg-blue-800 { background-color: var(--color-primary-800) !important; }
+.dark .bg-blue-900 { background-color: var(--color-primary-900) !important; }
+.dark .bg-blue-950 { background-color: var(--color-primary-950) !important; }
+
+.dark .text-blue-50 { color: var(--color-primary-950) !important; }
+.dark .text-blue-100 { color: var(--color-primary-900) !important; }
+.dark .text-blue-200 { color: var(--color-primary-800) !important; }
+.dark .text-blue-300 { color: var(--color-primary-700) !important; }
+.dark .text-blue-400 { color: var(--color-primary-600) !important; }
+.dark .text-blue-500 { color: var(--color-primary-500) !important; }
+.dark .text-blue-600 { color: var(--color-primary-400) !important; }
+.dark .text-blue-700 { color: var(--color-primary-300) !important; }
+.dark .text-blue-800 { color: var(--color-primary-200) !important; }
+.dark .text-blue-900 { color: var(--color-primary-100) !important; }
+.dark .text-blue-950 { color: var(--color-primary-50) !important; }
+
+.dark .border-blue-50 { border-color: var(--color-primary-950) !important; }
+.dark .border-blue-100 { border-color: var(--color-primary-900) !important; }
+.dark .border-blue-200 { border-color: var(--color-primary-800) !important; }
+.dark .border-blue-300 { border-color: var(--color-primary-700) !important; }
+.dark .border-blue-400 { border-color: var(--color-primary-600) !important; }
+.dark .border-blue-500 { border-color: var(--color-primary-500) !important; }
+.dark .border-blue-600 { border-color: var(--color-primary-400) !important; }
+.dark .border-blue-700 { border-color: var(--color-primary-300) !important; }
+.dark .border-blue-800 { border-color: var(--color-primary-200) !important; }
+.dark .border-blue-900 { border-color: var(--color-primary-100) !important; }
+.dark .border-blue-950 { border-color: var(--color-primary-50) !important; }
+
+.dark .ring-blue-50 { --tw-ring-color: var(--color-primary-950) !important; }
+.dark .ring-blue-100 { --tw-ring-color: var(--color-primary-900) !important; }
+.dark .ring-blue-200 { --tw-ring-color: var(--color-primary-800) !important; }
+.dark .ring-blue-300 { --tw-ring-color: var(--color-primary-700) !important; }
+.dark .ring-blue-400 { --tw-ring-color: var(--color-primary-600) !important; }
+.dark .ring-blue-500 { --tw-ring-color: var(--color-primary-500) !important; }
+.dark .ring-blue-600 { --tw-ring-color: var(--color-primary-400) !important; }
+.dark .ring-blue-700 { --tw-ring-color: var(--color-primary-300) !important; }
+.dark .ring-blue-800 { --tw-ring-color: var(--color-primary-200) !important; }
+.dark .ring-blue-900 { --tw-ring-color: var(--color-primary-100) !important; }
+.dark .ring-blue-950 { --tw-ring-color: var(--color-primary-50) !important; }
+
+// Hover states
+.hover\:bg-blue-50:hover { background-color: var(--color-primary-50) !important; }
+.hover\:bg-blue-100:hover { background-color: var(--color-primary-100) !important; }
+.hover\:bg-blue-200:hover { background-color: var(--color-primary-200) !important; }
+.hover\:bg-blue-300:hover { background-color: var(--color-primary-300) !important; }
+.hover\:bg-blue-400:hover { background-color: var(--color-primary-400) !important; }
+.hover\:bg-blue-500:hover { background-color: var(--color-primary-500) !important; }
+.hover\:bg-blue-600:hover { background-color: var(--color-primary-600) !important; }
+.hover\:bg-blue-700:hover { background-color: var(--color-primary-700) !important; }
+.hover\:bg-blue-800:hover { background-color: var(--color-primary-800) !important; }
+.hover\:bg-blue-900:hover { background-color: var(--color-primary-900) !important; }
+.hover\:bg-blue-950:hover { background-color: var(--color-primary-950) !important; }
+
+.hover\:text-blue-50:hover { color: var(--color-primary-950) !important; }
+.hover\:text-blue-100:hover { color: var(--color-primary-900) !important; }
+.hover\:text-blue-200:hover { color: var(--color-primary-800) !important; }
+.hover\:text-blue-300:hover { color: var(--color-primary-700) !important; }
+.hover\:text-blue-400:hover { color: var(--color-primary-600) !important; }
+.hover\:text-blue-500:hover { color: var(--color-primary-500) !important; }
+.hover\:text-blue-600:hover { color: var(--color-primary-400) !important; }
+.hover\:text-blue-700:hover { color: var(--color-primary-300) !important; }
+.hover\:text-blue-800:hover { color: var(--color-primary-200) !important; }
+.hover\:text-blue-900:hover { color: var(--color-primary-100) !important; }
+.hover\:text-blue-950:hover { color: var(--color-primary-50) !important; }
+
+// Focus states
+.focus\:ring-blue-50:focus { --tw-ring-color: var(--color-primary-950) !important; }
+.focus\:ring-blue-100:focus { --tw-ring-color: var(--color-primary-900) !important; }
+.focus\:ring-blue-200:focus { --tw-ring-color: var(--color-primary-800) !important; }
+.focus\:ring-blue-300:focus { --tw-ring-color: var(--color-primary-700) !important; }
+.focus\:ring-blue-400:focus { --tw-ring-color: var(--color-primary-600) !important; }
+.focus\:ring-blue-500:focus { --tw-ring-color: var(--color-primary-500) !important; }
+.focus\:ring-blue-600:focus { --tw-ring-color: var(--color-primary-400) !important; }
+.focus\:ring-blue-700:focus { --tw-ring-color: var(--color-primary-300) !important; }
+.focus\:ring-blue-800:focus { --tw-ring-color: var(--color-primary-200) !important; }
+.focus\:ring-blue-900:focus { --tw-ring-color: var(--color-primary-100) !important; }
+.focus\:ring-blue-950:focus { --tw-ring-color: var(--color-primary-50) !important; }
+
+.focus\:border-blue-50:focus { border-color: var(--color-primary-950) !important; }
+.focus\:border-blue-100:focus { border-color: var(--color-primary-900) !important; }
+.focus\:border-blue-200:focus { border-color: var(--color-primary-800) !important; }
+.focus\:border-blue-300:focus { border-color: var(--color-primary-700) !important; }
+.focus\:border-blue-400:focus { border-color: var(--color-primary-600) !important; }
+.focus\:border-blue-500:focus { border-color: var(--color-primary-500) !important; }
+.focus\:border-blue-600:focus { border-color: var(--color-primary-400) !important; }
+.focus\:border-blue-700:focus { border-color: var(--color-primary-300) !important; }
+.focus\:border-blue-800:focus { border-color: var(--color-primary-200) !important; }
+.focus\:border-blue-900:focus { border-color: var(--color-primary-100) !important; }
+.focus\:border-blue-950:focus { border-color: var(--color-primary-50) !important; }
+
+// Active states
+.active\:bg-blue-50:active { background-color: var(--color-primary-50) !important; }
+.active\:bg-blue-100:active { background-color: var(--color-primary-100) !important; }
+.active\:bg-blue-200:active { background-color: var(--color-primary-200) !important; }
+.active\:bg-blue-300:active { background-color: var(--color-primary-300) !important; }
+.active\:bg-blue-400:active { background-color: var(--color-primary-400) !important; }
+.active\:bg-blue-500:active { background-color: var(--color-primary-500) !important; }
+.active\:bg-blue-600:active { background-color: var(--color-primary-600) !important; }
+.active\:bg-blue-700:active { background-color: var(--color-primary-700) !important; }
+.active\:bg-blue-800:active { background-color: var(--color-primary-800) !important; }
+.active\:bg-blue-900:active { background-color: var(--color-primary-900) !important; }
+.active\:bg-blue-950:active { background-color: var(--color-primary-950) !important; }
+

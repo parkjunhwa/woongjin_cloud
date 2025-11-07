@@ -1,0 +1,17 @@
+// 타이포그래피 스타일
+html {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+// 기본 링크 색상
+a {
+  @apply text-blue-600 dark:text-blue-400;
+}
+

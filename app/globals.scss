@@ -1,0 +1,25 @@
+// Tailwind CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Base 스타일
+@layer base {
+  @import 'styles/base';
+}
+
+// Components 스타일
+@import 'styles/components';
+
+// Layouts 스타일
+@import 'styles/layouts';
+
+// Utilities 스타일
+@import 'styles/utilities';
+
+// Animations 스타일
+@import 'styles/animations';
+
+// Themes 스타일
+@import 'styles/themes';
+

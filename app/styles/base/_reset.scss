@@ -1,0 +1,13 @@
+// 리셋 스타일
+// Fix Tailwind base styles: remove vertical-align from block-level elements
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  vertical-align: unset !important;
+}
+

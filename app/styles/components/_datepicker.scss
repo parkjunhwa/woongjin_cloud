@@ -1,0 +1,89 @@
+// DatePicker 컴포넌트 스타일
+.rdp-month_caption {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  height: 32px !important; // h-7 = 1.75rem = 28px
+  align-items: center !important;
+  .rdp-button_previous,
+  .rdp-button_next {
+    align-self: center !important;
+  }
+}
+
+// 네비게이션 버튼 정렬
+.rdp-button_previous,
+.rdp-button_next {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 32px !important;
+  width: 28px !important;
+  line-height: 1 !important;
+  
+  svg {
+    display: block !important;
+    margin: 0 !important;
+  }
+}
+
+.rdp-chevron {
+  fill: #3b82f6 !important;
+}
+
+.rdp-today {
+  color: #3b82f6 !important;
+}
+
+.rdp-selected {
+  border-color: #3b82f6 !important;
+}
+
+.rdp-today:not(.rdp-outside) {
+  border-color: #3b82f6 !important;
+}
+
+.rdp-root {
+  --accent-color: #3b82f6 !important;
+}
+
+.rdp-day_range_middle,
+.rdp-range_middle {
+  background-color: rgba(133, 144, 166, 0.15) !important;
+  font-size: 14px !important;
+}
+
+.rdp-range_start .rdp-day_button,
+.rdp-range_end .rdp-day_button {
+  background-color: #3b82f6 !important;
+  font-size: 14px !important;
+}
+
+.rdp-selected .rdp-day_button {
+  border-color: #3b82f6 !important;
+  font-size: 14px !important;
+}
+
+// DatePicker 주말 폰트 컬러 오버라이드
+// 일요일 - red-500
+.rdp-day.rdp-day-sunday,
+.rdp-day-sunday,
+.rdp-day-sunday .rdp-day,
+.rdp-day-sunday button,
+button.rdp-day.rdp-day-sunday {
+  color: #ef4444 !important; // red-500
+}
+
+// 토요일 - blue-500
+.rdp-day.rdp-day-saturday,
+.rdp-day-saturday,
+.rdp-day-saturday .rdp-day,
+.rdp-day-saturday button,
+button.rdp-day.rdp-day-saturday {
+  color: #3b82f6 !important; // blue-500
+}
+
