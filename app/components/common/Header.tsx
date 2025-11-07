@@ -26,7 +26,45 @@ export const Header = function Header({}: HeaderProps) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [userMenuOpen, setUserMenuOpen] = React.useState(false);
   const [colorPaletteOpen, setColorPaletteOpen] = React.useState(false);
+  const [languageOpen, setLanguageOpen] = React.useState(false);
+  const [language, setLanguage] = React.useState("ko");
   const userMenuTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  // 포커스 링 컬러 클래스 생성
+  const getFocusRingClass = React.useCallback(() => {
+    const colorMap: Record<string, string> = {
+      blue: "focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+      red: "focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2",
+      green: "focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2",
+      yellow: "focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2",
+      purple: "focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2",
+      pink: "focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2",
+      indigo: "focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2",
+      teal: "focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2",
+      orange: "focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
+      gray: "focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2",
+      cyan: "focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2",
+      emerald: "focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
+      violet: "focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2",
+      fuchsia: "focus-visible:ring-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-2",
+      rose: "focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2",
+      amber: "focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2",
+      lime: "focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2",
+      sky: "focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
+    };
+    return colorMap[colorTheme] || colorMap.blue;
+  }, [colorTheme]);
+
+  // 언어 이름 매핑
+  const getLanguageName = React.useCallback((lang: string) => {
+    const langMap: Record<string, string> = {
+      ko: "한국어",
+      en: "English",
+      zh: "中文",
+      es: "Español",
+    };
+    return langMap[lang] || langMap.ko;
+  }, []);
 
   const colorOptions: Array<{ name: string; value: string; label: string }> = [
     { name: "blue", value: "#3b82f6", label: "블루" },
@@ -386,6 +424,139 @@ export const Header = function Header({}: HeaderProps) {
                     </Tooltip.Portal>
                   </Tooltip.Root>
                 </Tooltip.Provider>
+              </div>
+              {/* 다국어 버튼 */}
+              <div className="hidden md:block">
+                <Popover.Root open={languageOpen} onOpenChange={setLanguageOpen}>
+                  <Tooltip.Provider>
+                    <Tooltip.Root open={!languageOpen ? undefined : false}>
+                      <Tooltip.Trigger asChild>
+                        <Popover.Trigger asChild>
+                          <button
+                            type="button"
+                            className={`rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300 flex items-center justify-center focus:outline-none ${getFocusRingClass()}`}
+                            aria-label={`언어 선택, 현재 선택: ${getLanguageName(language)}`}
+                            aria-expanded={languageOpen}
+                            aria-haspopup="true"
+                          >
+                            <span className="text-xl" aria-hidden="true">
+                              {language === "ko" ? "🇰🇷" : language === "en" ? "🇺🇸" : language === "zh" ? "🇨🇳" : "🇪🇸"}
+                            </span>
+                          </button>
+                        </Popover.Trigger>
+                      </Tooltip.Trigger>
+                      <Tooltip.Portal>
+                        <Tooltip.Content
+                          side="bottom"
+                          sideOffset={5}
+                          className="rounded-sm bg-gray-900 dark:bg-gray-800 px-3 py-2 text-sm text-white shadow-lg z-50"
+                        >
+                          언어 선택
+                          <Tooltip.Arrow className="fill-gray-900 dark:bg-gray-800" />
+                        </Tooltip.Content>
+                      </Tooltip.Portal>
+                    </Tooltip.Root>
+                  </Tooltip.Provider>
+                  <Popover.Portal>
+                    <Popover.Content
+                      side="bottom"
+                      align="end"
+                      sideOffset={8}
+                      className="min-w-[180px] rounded-sm border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-xl z-50 p-1"
+                      role="listbox"
+                      aria-label="언어 선택 목록"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLanguage("ko");
+                          setLanguageOpen(false);
+                        }}
+                        className={`w-full rounded px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer text-gray-700 dark:text-gray-300 flex items-center gap-2 text-left focus:outline-none ${getFocusRingClass()} ${
+                          language === "ko" ? "bg-gray-50 dark:bg-gray-800" : ""
+                        }`}
+                        aria-label="한국어 선택"
+                        aria-pressed={language === "ko"}
+                        role="option"
+                        aria-selected={language === "ko"}
+                      >
+                        <span className="text-lg" aria-hidden="true">🇰🇷</span>
+                        <span>한국어</span>
+                        {language === "ko" && (
+                          <svg className="w-4 h-4 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLanguage("en");
+                          setLanguageOpen(false);
+                        }}
+                        className={`w-full rounded px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer text-gray-700 dark:text-gray-300 flex items-center gap-2 text-left focus:outline-none ${getFocusRingClass()} ${
+                          language === "en" ? "bg-gray-50 dark:bg-gray-800" : ""
+                        }`}
+                        aria-label="English 선택"
+                        aria-pressed={language === "en"}
+                        role="option"
+                        aria-selected={language === "en"}
+                      >
+                        <span className="text-lg" aria-hidden="true">🇺🇸</span>
+                        <span>English</span>
+                        {language === "en" && (
+                          <svg className="w-4 h-4 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLanguage("zh");
+                          setLanguageOpen(false);
+                        }}
+                        className={`w-full rounded px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer text-gray-700 dark:text-gray-300 flex items-center gap-2 text-left focus:outline-none ${getFocusRingClass()} ${
+                          language === "zh" ? "bg-gray-50 dark:bg-gray-800" : ""
+                        }`}
+                        aria-label="중국어 선택"
+                        aria-pressed={language === "zh"}
+                        role="option"
+                        aria-selected={language === "zh"}
+                      >
+                        <span className="text-lg" aria-hidden="true">🇨🇳</span>
+                        <span>中文</span>
+                        {language === "zh" && (
+                          <svg className="w-4 h-4 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLanguage("es");
+                          setLanguageOpen(false);
+                        }}
+                        className={`w-full rounded px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer text-gray-700 dark:text-gray-300 flex items-center gap-2 text-left focus:outline-none ${getFocusRingClass()} ${
+                          language === "es" ? "bg-gray-50 dark:bg-gray-800" : ""
+                        }`}
+                        aria-label="스페인어 선택"
+                        aria-pressed={language === "es"}
+                        role="option"
+                        aria-selected={language === "es"}
+                      >
+                        <span className="text-lg" aria-hidden="true">🇪🇸</span>
+                        <span>Español</span>
+                        {language === "es" && (
+                          <svg className="w-4 h-4 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </button>
+                    </Popover.Content>
+                  </Popover.Portal>
+                </Popover.Root>
               </div>
               {/* 검색 */}
               <Popover.Root open={searchOpen} onOpenChange={setSearchOpen}>
