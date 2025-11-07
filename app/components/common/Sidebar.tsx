@@ -163,6 +163,42 @@ const navItems: NavItem[] = [
       },
     ],
   },
+  {
+    label: "참고 사이트",
+    href: "#",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+      </svg>
+    ),
+    children: [
+      {
+        label: "Radix UI",
+        href: "https://www.radix-ui.com/",
+        icon: null,
+      },
+      {
+        label: "Tailwind CSS",
+        href: "https://tailwindcss.com/",
+        icon: null,
+      },
+      {
+        label: "React",
+        href: "https://react.dev/",
+        icon: null,
+      },
+      {
+        label: "Next.js",
+        href: "https://nextjs.org/",
+        icon: null,
+      },
+      {
+        label: "Lucide Icons",
+        href: "https://lucide.dev/",
+        icon: null,
+      },
+    ],
+  },
 ];
 
 export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
@@ -171,10 +207,17 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
   const { addTab, setActiveTab, isTabsEnabled } = useTabs();
   const router = useRouter();
 
+  // 외부 링크인지 확인하는 헬퍼 함수
+  const isExternalLink = (href: string): boolean => {
+    return href.startsWith('http://') || href.startsWith('https://');
+  };
+
   // 현재 적용된 테마 확인 (system일 경우 실제 다크 모드 여부 확인)
   const [isDark, setIsDark] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setMounted(true);
     const checkDarkMode = () => {
       if (theme === "dark") {
         setIsDark(true);
@@ -281,38 +324,57 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
 
     return (
       <li key={childMenuKey}>
-        <Link
-          href={item.href}
-          onClick={(e) => {
-            e.preventDefault();
-            // 탭 기능이 켜져 있을 때만 탭 기능 사용
-            if (isTabsEnabled) {
-              // 대시보드(/)는 home 탭과 동일하므로 home 탭 활성화
-              if (item.href === "/") {
-                setActiveTab("home");
-                router.push("/");
+        {isExternalLink(item.href) ? (
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center gap-2 px-3 py-2 rounded-sm transition-colors text-sm ${isActive
+                ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
+                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+            style={{ paddingLeft: `${8 + (depth - 1) * 16}px` }}
+            aria-label={`${item.label} (새 창에서 열림)`}
+          >
+            <span className="font-medium truncate min-w-0 flex-1">{item.label}</span>
+            <svg className="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        ) : (
+          <Link
+            href={item.href}
+            onClick={(e) => {
+              e.preventDefault();
+              // 탭 기능이 켜져 있을 때만 탭 기능 사용
+              if (isTabsEnabled) {
+                // 대시보드(/)는 home 탭과 동일하므로 home 탭 활성화
+                if (item.href === "/") {
+                  setActiveTab("home");
+                  router.push("/");
+                } else {
+                  addTab({
+                    id: item.href,
+                    label: item.label,
+                    href: item.href,
+                  });
+                  router.push(item.href);
+                }
               } else {
-                addTab({
-                  id: item.href,
-                  label: item.label,
-                  href: item.href,
-                });
+                // 탭 기능이 꺼져 있을 때는 바로 페이지 이동만
                 router.push(item.href);
               }
-            } else {
-              // 탭 기능이 꺼져 있을 때는 바로 페이지 이동만
-              router.push(item.href);
-            }
-          }}
-          className={`flex items-center gap-2 px-3 py-2 rounded-sm transition-colors text-sm ${isActive
-              ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
-              : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-            }`}
-          style={{ paddingLeft: `${8 + (depth - 1) * 16}px` }}
-          aria-current={isActive ? "page" : undefined}
-        >
-          <span className="font-medium truncate min-w-0 flex-1">{item.label}</span>
-        </Link>
+            }}
+            className={`flex items-center gap-2 px-3 py-2 rounded-sm transition-colors text-sm ${isActive
+                ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
+                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+            style={{ paddingLeft: `${8 + (depth - 1) * 16}px` }}
+            aria-current={isActive ? "page" : undefined}
+          >
+            <span className="font-medium truncate min-w-0 flex-1">{item.label}</span>
+          </Link>
+        )}
       </li>
     );
   };
@@ -375,24 +437,46 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
 
       return (
         <li key={menuKey}>
-          <Link
-            href={item.href}
-            className={`sidebar-item flex items-center justify-center px-3 py-2 rounded-sm transition-colors ${isActive
-                ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
-                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-              }`}
-            title={item.label}
-            aria-label={item.label}
-            aria-current={isActive ? "page" : undefined}
-            onClick={() => {
-              // 모바일에서 메뉴 클릭 시 사이드바 닫기
-              if (isMobileOpen && onMobileClose) {
-                onMobileClose();
-              }
-            }}
-          >
-            {item.icon && <span className="flex-shrink-0">{item.icon}</span>}
-          </Link>
+          {isExternalLink(item.href) ? (
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`sidebar-item flex items-center justify-center px-3 py-2 rounded-sm transition-colors ${isActive
+                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                }`}
+              title={item.label}
+              aria-label={`${item.label} (새 창에서 열림)`}
+              onClick={() => {
+                // 모바일에서 메뉴 클릭 시 사이드바 닫기
+                if (isMobileOpen && onMobileClose) {
+                  onMobileClose();
+                }
+              }}
+            >
+              {item.icon && <span className="flex-shrink-0">{item.icon}</span>}
+            </a>
+          ) : (
+            <Link
+              href={item.href}
+              className={`sidebar-item flex items-center justify-center px-3 py-2 rounded-sm transition-colors ${isActive
+                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                }`}
+              title={item.label}
+              aria-label={item.label}
+              aria-current={isActive ? "page" : undefined}
+              onClick={() => {
+                // 모바일에서 메뉴 클릭 시 사이드바 닫기
+                if (isMobileOpen && onMobileClose) {
+                  onMobileClose();
+                }
+              }}
+            >
+              {item.icon && <span className="flex-shrink-0">{item.icon}</span>}
+            </Link>
+          )}
         </li>
       );
     }
@@ -450,55 +534,97 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
     // 자식이 없는 경우 Link로 렌더링
     return (
       <li key={menuKey}>
-        <Link
-          href={item.href}
-          onClick={(e) => {
-            e.preventDefault();
-            // 탭 기능이 켜져 있을 때만 탭 기능 사용
-            if (isTabsEnabled) {
-              // 대시보드(/)는 home 탭과 동일하므로 home 탭 활성화
-              if (item.href === "/") {
-                setActiveTab("home");
-                router.push("/");
+        {isExternalLink(item.href) ? (
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`sidebar-item flex items-center gap-3 px-3 py-2 rounded-sm transition-colors ${depth === 0
+                ? isActive
+                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50 active"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                : isActive
+                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+            style={{ paddingLeft: depth > 0 ? `${12 + depth * 16}px` : undefined }}
+            title={isCollapsed && depth === 0 ? item.label : undefined}
+            aria-label={`${item.label} (새 창에서 열림)`}
+            onClick={() => {
+              // 모바일에서 메뉴 클릭 시 사이드바 닫기
+              if (isMobileOpen && onMobileClose) {
+                onMobileClose();
+              }
+            }}
+          >
+            {depth === 0 && item.icon && (
+              <span className={`flex-shrink-0 ${isCollapsed && !(isMobileOpen !== undefined && isMobileOpen) ? "mx-auto" : ""}`}>
+                {item.icon}
+              </span>
+            )}
+            {(!isCollapsed || (isMobileOpen !== undefined && isMobileOpen)) && (
+              <>
+                <span className={`font-medium truncate min-w-0 flex-1 ${depth === 0 ? "text-sm" : "text-sm"}`}>
+                  {item.label}
+                </span>
+                <svg className="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </>
+            )}
+          </a>
+        ) : (
+          <Link
+            href={item.href}
+            onClick={(e) => {
+              e.preventDefault();
+              // 탭 기능이 켜져 있을 때만 탭 기능 사용
+              if (isTabsEnabled) {
+                // 대시보드(/)는 home 탭과 동일하므로 home 탭 활성화
+                if (item.href === "/") {
+                  setActiveTab("home");
+                  router.push("/");
+                } else {
+                  addTab({
+                    id: item.href,
+                    label: item.label,
+                    href: item.href,
+                  });
+                  router.push(item.href);
+                }
               } else {
-                addTab({
-                  id: item.href,
-                  label: item.label,
-                  href: item.href,
-                });
+                // 탭 기능이 꺼져 있을 때는 바로 페이지 이동만
                 router.push(item.href);
               }
-            } else {
-              // 탭 기능이 꺼져 있을 때는 바로 페이지 이동만
-              router.push(item.href);
-            }
-            // 모바일에서 메뉴 클릭 시 사이드바 닫기
-            if (isMobileOpen && onMobileClose) {
-              onMobileClose();
-            }
-          }}
-          className={`sidebar-item flex items-center gap-3 px-3 py-2 rounded-sm transition-colors ${depth === 0
-              ? isActive
-                ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50 active"
-                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-              : isActive
-                ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
-                : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-            }`}
-          style={{ paddingLeft: depth > 0 ? `${12 + depth * 16}px` : undefined }}
-          title={isCollapsed && depth === 0 ? item.label : undefined}
-        >
-          {depth === 0 && item.icon && (
-            <span className={`flex-shrink-0 ${isCollapsed && !(isMobileOpen !== undefined && isMobileOpen) ? "mx-auto" : ""}`}>
-              {item.icon}
-            </span>
-          )}
-          {(!isCollapsed || (isMobileOpen !== undefined && isMobileOpen)) && (
-            <span className={`font-medium truncate min-w-0 flex-1 ${depth === 0 ? "text-sm" : "text-sm"}`}>
-              {item.label}
-            </span>
-          )}
-        </Link>
+              // 모바일에서 메뉴 클릭 시 사이드바 닫기
+              if (isMobileOpen && onMobileClose) {
+                onMobileClose();
+              }
+            }}
+            className={`sidebar-item flex items-center gap-3 px-3 py-2 rounded-sm transition-colors ${depth === 0
+                ? isActive
+                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50 active"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                : isActive
+                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+            style={{ paddingLeft: depth > 0 ? `${12 + depth * 16}px` : undefined }}
+            title={isCollapsed && depth === 0 ? item.label : undefined}
+            aria-current={isActive ? "page" : undefined}
+          >
+            {depth === 0 && item.icon && (
+              <span className={`flex-shrink-0 ${isCollapsed && !(isMobileOpen !== undefined && isMobileOpen) ? "mx-auto" : ""}`}>
+                {item.icon}
+              </span>
+            )}
+            {(!isCollapsed || (isMobileOpen !== undefined && isMobileOpen)) && (
+              <span className={`font-medium truncate min-w-0 flex-1 ${depth === 0 ? "text-sm" : "text-sm"}`}>
+                {item.label}
+              </span>
+            )}
+          </Link>
+        )}
       </li>
     );
   };
@@ -531,14 +657,18 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
         <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800 min-h-[64px]">
           {(!isCollapsed || (isMobileOpen !== undefined && isMobileOpen)) && (
             <div className="flex items-center gap-2">
-              <Image
-                src={isDark ? "/images/logo_w.svg" : "/images/logo_b.svg"}
-                alt="woongjin cloud"
-                height={28}
-                width={120}
-                className="h-6 w-auto mt-3"
-                priority
-              />
+              {mounted ? (
+                <Image
+                  src={isDark ? "/images/logo_w.svg" : "/images/logo_b.svg"}
+                  alt="woongjin cloud"
+                  height={28}
+                  width={120}
+                  className="h-6 w-auto mt-3"
+                  priority
+                />
+              ) : (
+                <div className="h-6 w-[120px] mt-3" />
+              )}
               <span className="font-bold">클라우드</span>
             </div>
           )}
