@@ -217,27 +217,52 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     setMounted(true);
     const checkDarkMode = () => {
-      if (theme === "dark") {
-        setIsDark(true);
-      } else if (theme === "light") {
+      try {
+        if (theme === "dark") {
+          setIsDark(true);
+        } else if (theme === "light") {
+          setIsDark(false);
+        } else {
+          // system 모드일 경우 실제 다크 모드 여부 확인
+          if (typeof document !== "undefined") {
+            setIsDark(document.documentElement.classList.contains("dark"));
+          }
+        }
+      } catch (error) {
+        console.error("Error checking dark mode:", error);
         setIsDark(false);
-      } else {
-        // system 모드일 경우 실제 다크 모드 여부 확인
-        setIsDark(document.documentElement.classList.contains("dark"));
       }
     };
 
     checkDarkMode();
 
     // 시스템 테마 변경 감지
-    if (theme === "system") {
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      const handleChange = () => checkDarkMode();
-      mediaQuery.addEventListener("change", handleChange);
-      return () => mediaQuery.removeEventListener("change", handleChange);
+    let mediaQuery: MediaQueryList | null = null;
+    let handleChange: (() => void) | null = null;
+    
+    if (theme === "system" && typeof window !== "undefined" && window.matchMedia) {
+      try {
+        mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        handleChange = () => checkDarkMode();
+        mediaQuery.addEventListener("change", handleChange);
+      } catch (error) {
+        console.error("Error setting up media query listener:", error);
+      }
     }
+    
+    return () => {
+      if (mediaQuery && handleChange) {
+        try {
+          mediaQuery.removeEventListener("change", handleChange);
+        } catch (error) {
+          console.error("Error removing media query listener:", error);
+        }
+      }
+    };
   }, [theme]);
 
   const onToggle = React.useCallback(() => {
@@ -250,7 +275,17 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
   const pathname = usePathname();
   const [openMenus, setOpenMenus] = React.useState<Record<string, boolean>>({});
   const [hoveredMenu, setHoveredMenu] = React.useState<string | null>(null);
-  const hoverTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const hoverTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // 컴포넌트 언마운트 시 타임아웃 정리
+  React.useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+        hoverTimeoutRef.current = null;
+      }
+    };
+  }, []);
 
   const toggleMenu = React.useCallback((label: string) => {
     setOpenMenus((prev) => ({
@@ -267,7 +302,10 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
     setHoveredMenu(menuKey);
   }, []);
 
-  const handleMouseLeave = React.useCallback((menuKey: string) => {
+  const handleMouseLeave = React.useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
     hoverTimeoutRef.current = setTimeout(() => {
       setHoveredMenu(null);
     }, 150);
@@ -402,7 +440,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                 <div
                   data-sidebar-trigger={menuKey}
                   onMouseEnter={() => handleMouseEnter(menuKey)}
-                  onMouseLeave={() => handleMouseLeave(menuKey)}
+                  onMouseLeave={handleMouseLeave}
                   className={`sidebar-item flex items-center justify-center px-3 py-2 rounded-sm transition-colors cursor-pointer relative ${isActive
                       ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-50"
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -418,7 +456,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
                   sideOffset={0}
                   align="start"
                   onMouseEnter={() => handleMouseEnter(menuKey)}
-                  onMouseLeave={() => handleMouseLeave(menuKey)}
+                  onMouseLeave={handleMouseLeave}
                   className="min-w-[200px] rounded-sm border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-xl z-50 p-2 relative"
                 >
                   {/* 팝오버 왼쪽 화살표 테두리 (바깥쪽) */}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export interface Tab {
@@ -32,17 +32,27 @@ function sortTabsWithHomeFirst(tabs: Tab[]): Tab[] {
 
 export function TabProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [tabs, setTabs] = useState<Tab[]>([
     { id: "home", label: "Home", href: "/" },
   ]);
   const [activeTabId, setActiveTabId] = useState<string>("home");
-  const [isTabsEnabled, setIsTabsEnabled] = useState<boolean>(() => {
+  const [isTabsEnabled, setIsTabsEnabled] = useState<boolean>(true);
+
+  // 마운트 후 localStorage에서 값 로드
+  useEffect(() => {
+    setMounted(true);
     if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("tabsEnabled");
-      return saved !== null ? saved === "true" : true; // 기본값은 true
+      try {
+        const saved = localStorage.getItem("tabsEnabled");
+        if (saved !== null) {
+          setIsTabsEnabled(saved === "true");
+        }
+      } catch (error) {
+        console.error("Error loading tabsEnabled from localStorage:", error);
+      }
     }
-    return true;
-  });
+  }, []);
 
   const addTab = useCallback((tab: Tab) => {
     setTabs((prevTabs) => {
@@ -133,7 +143,11 @@ export function TabProvider({ children }: { children: React.ReactNode }) {
     setIsTabsEnabled((prev) => {
       const newValue = !prev;
       if (typeof window !== "undefined") {
-        localStorage.setItem("tabsEnabled", String(newValue));
+        try {
+          localStorage.setItem("tabsEnabled", String(newValue));
+        } catch (error) {
+          console.error("Error saving tabsEnabled to localStorage:", error);
+        }
       }
       return newValue;
     });
