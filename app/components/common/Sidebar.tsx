@@ -294,30 +294,10 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
     };
   }, []);
 
-  // 포커스 링 컬러 클래스 생성
+  // 포커스 링 컬러 클래스 생성 (시각적으로는 숨김, 키보드 네비게이션은 유지)
   const getFocusRingClass = React.useCallback(() => {
-    const colorMap: Record<string, string> = {
-      blue: "focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
-      red: "focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2",
-      green: "focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2",
-      yellow: "focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2",
-      purple: "focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2",
-      pink: "focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2",
-      indigo: "focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2",
-      teal: "focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2",
-      orange: "focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
-      gray: "focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2",
-      cyan: "focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2",
-      emerald: "focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
-      violet: "focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2",
-      fuchsia: "focus-visible:ring-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-2",
-      rose: "focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2",
-      amber: "focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2",
-      lime: "focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2",
-      sky: "focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
-    };
-    return colorMap[colorTheme] || colorMap.blue;
-  }, [colorTheme]);
+    return "";
+  }, []);
 
   // 컴포넌트 언마운트 시 타임아웃 정리
   React.useEffect(() => {

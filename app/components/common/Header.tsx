@@ -30,30 +30,10 @@ export const Header = function Header({}: HeaderProps) {
   const [language, setLanguage] = React.useState("ko");
   const userMenuTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  // 포커스 링 컬러 클래스 생성
+  // 단순화된 포커스 링 컬러 클래스 생성 (포커스 링 숨김)
   const getFocusRingClass = React.useCallback(() => {
-    const colorMap: Record<string, string> = {
-      blue: "focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
-      red: "focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2",
-      green: "focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2",
-      yellow: "focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2",
-      purple: "focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2",
-      pink: "focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2",
-      indigo: "focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2",
-      teal: "focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2",
-      orange: "focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
-      gray: "focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2",
-      cyan: "focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2",
-      emerald: "focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
-      violet: "focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2",
-      fuchsia: "focus-visible:ring-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-2",
-      rose: "focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2",
-      amber: "focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2",
-      lime: "focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2",
-      sky: "focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
-    };
-    return colorMap[colorTheme] || colorMap.blue;
-  }, [colorTheme]);
+    return "";
+  }, []);
 
   // 언어 이름 매핑
   const getLanguageName = React.useCallback((lang: string) => {
@@ -119,7 +99,7 @@ export const Header = function Header({}: HeaderProps) {
               <Popover.Trigger asChild>
                 <button
                   type="button"
-                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm px-1 py-1"
+                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity focus:outline-none rounded-sm px-1 py-1"
                   aria-label="사용자 메뉴"
                   aria-expanded={userMenuOpen}
                   onMouseEnter={() => {
@@ -612,7 +592,7 @@ export const Header = function Header({}: HeaderProps) {
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
                           placeholder="검색어를 입력하세요"
-                          className="w-full h-[32px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 pl-4 pr-10 text-sm text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                          className="w-full h-[32px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 pl-4 pr-10 text-sm text-left focus:outline-none text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                           autoFocus
                           aria-label="검색어 입력"
                         />

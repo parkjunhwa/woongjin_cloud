@@ -221,6 +221,13 @@ const getTabsColorClasses = (baseColor: string) => {
   return colorMap[baseColor] || colorMap.blue;
 };
 
+const getSelectFocusClasses = (baseColor: string) =>
+  `focus:outline-none focus:ring-2 focus:ring-${baseColor}-500 focus:border-transparent`;
+
+const getAutocompleteFocusClasses = (baseColor: string) =>
+  `focus-within:outline-none focus-within:ring-2 focus-within:ring-${baseColor}-500 focus-within:border-transparent`;
+
+
 export default function Dashboard() {
   const { colorTheme } = useTheme();
   const [progress, setProgress] = React.useState(33);
@@ -1773,12 +1780,12 @@ export default function Dashboard() {
                     onOpenChange={setMultiAutocompleteOpen}
                   >
                     <Popover.Anchor asChild>
-                      <div className="relative min-h-[32px] w-full rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-2 py-1 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent flex flex-wrap gap-1 items-center">
+                      <div className={`relative min-h-[32px] w-full rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-2 py-1 ${getAutocompleteFocusClasses(colorTheme)} flex flex-wrap gap-1 items-center`}>
                         {/* 선택된 항목들 (Chip) */}
                         {selectedMultiAutocompleteItems.map((item, index) => (
                           <div
                             key={`${item}-${index}`}
-                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-blue-500 dark:bg-blue-600 text-white text-sm"
+                            className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-${colorTheme}-500 dark:bg-${colorTheme}-600 text-white text-sm`}
                           >
                             <span>{item}</span>
                             <button
@@ -1791,7 +1798,7 @@ export default function Dashboard() {
                                 );
                                 setMultiAutocompleteOpen(true);
                               }}
-                              className="hover:bg-blue-600 dark:hover:bg-blue-700 rounded-sm p-0.5 transition-colors"
+                              className={`hover:bg-${colorTheme}-600 dark:hover:bg-${colorTheme}-700 rounded-sm p-0.5 transition-colors`}
                               aria-label={`${item} 제거`}
                             >
                               <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -3445,7 +3452,7 @@ export default function Dashboard() {
             <Card title="Select">
               <div className="space-y-4">
                 <Select.Root value={selectValue} onValueChange={setSelectValue}>
-                  <Select.Trigger className="flex w-full h-[32px] items-center justify-between rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors">
+                  <Select.Trigger className={`flex w-full h-[32px] items-center justify-between rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors ${getSelectFocusClasses(colorTheme)}`}>
                     <Select.Value placeholder="옵션을 선택하세요" className="text-gray-500 dark:text-gray-400" />
                     <Select.Icon className="text-gray-500 dark:text-gray-400">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
