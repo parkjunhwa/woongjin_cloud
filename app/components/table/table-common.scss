@@ -1,0 +1,1094 @@
+// Tabulator 테이블 전용 스타일 (Tailwind와 호환)
+// 기본 레이아웃은 Tailwind 클래스로 처리하고, Tabulator 라이브러리 전용 스타일만 여기에 정의
+// 다크 모드 및 컬러 스키마 변경에 대응
+
+// ==========================================
+// CSS 변수 정의 (그레이 색상)
+// ==========================================
+:root {
+  // 그레이 색상 (라이트 모드)
+  --table-gray-50: #f9fafb;
+  --table-gray-100: #f3f4f6;
+  --table-gray-200: #e5e7eb;
+  --table-gray-300: #d1d5db;
+  --table-gray-400: #9ca3af;
+  --table-gray-500: #6b7280;
+  --table-gray-600: #4b5563;
+  --table-gray-700: #374151;
+  --table-gray-800: #1f2937;
+  --table-gray-900: #111827;
+  --table-gray-950: #030712;
+  
+  // 배경 및 텍스트 색상
+  --table-bg: #ffffff;
+  --table-text: #374151;
+  --table-text-secondary: #6b7280;
+  --table-border: #f3f4f6;
+  --table-border-outline: #e5e7eb;
+  --table-row-even: #f9fafb;
+  --table-row-hover: var(--color-primary-100);
+  --table-row-selected: var(--color-primary-100);
+  --table-row-selected-hover: var(--color-primary-200);
+  --table-row-selected-border: var(--color-primary-600);
+  
+  // 헤더 색상
+  --table-header-bg: var(--color-primary-900);
+  --table-header-bg-hover: var(--color-primary-800);
+  --table-header-border: var(--color-primary-500);
+  --table-header-border-right: var(--color-primary-600);
+  --table-header-text: #ffffff;
+  
+  // 편집 모드
+  --table-edit-border: var(--color-primary-600);
+  
+  // 체크박스
+  --table-checkbox-border: var(--color-primary-500);
+  --table-checkbox-bg: var(--color-primary-500);
+  --table-checkbox-hover: var(--color-primary-600);
+  
+  // 메뉴
+  --table-menu-bg: #ffffff;
+  --table-menu-border: #e5e7eb;
+  --table-menu-text: #111827;
+  --table-menu-hover: #f3f4f6;
+  --table-menu-separator: #e5e7eb;
+  --table-menu-disabled: #9ca3af;
+  
+  // 에러
+  --table-error-bg: #fee2e2;
+  --table-error-text: #dc2626;
+  --table-error-border: #ef4444;
+  
+  // 아이콘
+  --table-icon-color: #9ca3af;
+  --table-icon-hover: var(--color-primary-500);
+  --table-icon-hint: #6b7280;
+  
+  // 고정 컬럼
+  --table-frozen-border: rgba(17, 24, 39, 0.5);
+}
+
+// 다크 모드 색상
+html.dark,
+.dark {
+  // 그레이 색상 (다크 모드)
+  --table-gray-50: #030712;
+  --table-gray-100: #111827;
+  --table-gray-200: #1f2937;
+  --table-gray-300: #374151;
+  --table-gray-400: #4b5563;
+  --table-gray-500: #6b7280;
+  --table-gray-600: #9ca3af;
+  --table-gray-700: #d1d5db;
+  --table-gray-800: #e5e7eb;
+  --table-gray-900: #f3f4f6;
+  --table-gray-950: #f9fafb;
+  
+  // 배경 및 텍스트 색상
+  --table-bg: #111827;
+  --table-text: #d1d5db;
+  --table-text-secondary: #9ca3af;
+  --table-border: #374151;
+  --table-border-outline: #4b5563;
+  --table-row-even: #1f2937;
+  --table-row-hover: var(--color-primary-900);
+  --table-row-selected: var(--color-primary-900);
+  --table-row-selected-hover: var(--color-primary-800);
+  --table-row-selected-border: var(--color-primary-500);
+  
+  // 헤더 색상
+  --table-header-bg: var(--color-primary-900);
+  --table-header-bg-hover: var(--color-primary-800);
+  --table-header-border: var(--color-primary-500);
+  --table-header-border-right: var(--color-primary-600);
+  --table-header-text: #ffffff;
+  
+  // 편집 모드
+  --table-edit-border: var(--color-primary-500);
+  
+  // 체크박스
+  --table-checkbox-border: var(--color-primary-500);
+  --table-checkbox-bg: var(--color-primary-500);
+  --table-checkbox-hover: var(--color-primary-400);
+  
+  // 메뉴
+  --table-menu-bg: #1f2937;
+  --table-menu-border: #374151;
+  --table-menu-text: #f3f4f6;
+  --table-menu-hover: #374151;
+  --table-menu-separator: #374151;
+  --table-menu-disabled: #6b7280;
+  
+  // 에러
+  --table-error-bg: #7f1d1d;
+  --table-error-text: #fca5a5;
+  --table-error-border: #dc2626;
+  
+  // 아이콘
+  --table-icon-color: #6b7280;
+  --table-icon-hover: var(--color-primary-400);
+  --table-icon-hint: #9ca3af;
+  
+  // 고정 컬럼
+  --table-frozen-border: rgba(243, 244, 246, 0.3);
+}
+
+// ==========================================
+// 기본 컨테이너 및 레이아웃
+// ==========================================
+.sample-table-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow: hidden;
+  background-color: var(--table-bg) !important;
+}
+
+// ==========================================
+// Tabulator 기본 스타일
+// ==========================================
+.tabulator {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: none;
+  border: 1px solid var(--table-border-outline) !important;
+
+  // 헤더 스타일
+  .tabulator-header {
+    background-color: var(--table-header-bg);
+    border-bottom: 1px solid var(--table-header-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
+
+    .tabulator-col {
+      background-color: var(--table-header-bg);
+      border-right: 1px solid var(--table-header-border-right);
+      font-weight: 400;
+      color: var(--table-header-text);
+      font-size: 13px;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      box-sizing: border-box;
+
+      &:hover {
+        background-color: var(--table-header-bg-hover);
+        border-right: 1px solid var(--table-header-border-right);
+      }
+
+      &.tabulator-sortable {
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--table-header-bg-hover);
+        }
+
+        // 정렬 아이콘 스타일
+        .tabulator-col-sorter {
+          color: var(--table-header-text);
+          opacity: 0.5;
+        }
+
+        // 정렬 상태별 아이콘
+        &.tabulator-col-sort-asc .tabulator-col-sorter {
+          opacity: 1;
+        }
+
+        &.tabulator-col-sort-desc .tabulator-col-sorter {
+          opacity: 1;
+        }
+
+        &:hover .tabulator-col-sorter {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+  // 바디 스타일
+  .tabulator-tableholder {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+    background-color: var(--table-bg) !important;
+
+    .tabulator-table {
+      width: 100%;
+      table-layout: fixed;
+      background-color: var(--table-bg) !important;
+    }
+  }
+  
+  // fitDataFill 레이아웃일 때는 min-width 제거하고 테이블이 컨테이너를 꽉 채우도록
+  &.fit-data-fill {
+    .tabulator-tableholder {
+      .tabulator-table {
+        min-width: auto;
+        table-layout: auto;
+        width: 100%;
+      }
+    }
+  }
+
+  .tabulator-row {
+    border-bottom: 1px solid var(--table-border) !important;
+    transition: all 0.2s ease;
+    width: fit-content !important;
+    background-color: var(--table-bg) !important;
+
+    &:hover {
+      background-color: var(--table-row-hover) !important;
+      .tabulator-cell {
+        background-color: var(--table-row-hover) !important;
+      }
+      
+      // fixed 셀도 hover 시 tr의 배경색 적용
+      .tabulator-cell.tabulator-frozen {
+        background-color: var(--table-row-hover) !important;
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: var(--table-row-even) !important;
+      
+      &:hover {
+        background-color: var(--table-row-hover) !important;
+        
+        .tabulator-cell {
+          background-color: var(--table-row-hover) !important;
+        }
+        
+        // fixed 셀도 hover 시 tr의 배경색 적용
+        .tabulator-cell.tabulator-frozen {
+          background-color: var(--table-row-hover) !important;
+        }
+      }
+      
+      .tabulator-cell {
+        background: var(--table-row-even) !important;
+      }
+      
+      // fixed 셀도 짝수 행 배경색 적용
+      .tabulator-cell.tabulator-frozen {
+        background: var(--table-row-even) !important;
+      }
+    }
+
+    .tabulator-cell {
+      padding: 6px 12px !important;
+      border-right: 1px solid var(--table-border) !important;
+      color: var(--table-text) !important;
+      font-size: 13px;
+      vertical-align: middle;
+      height: 34px !important;
+      line-height: 22px !important;
+      background: var(--table-bg) !important;
+    }
+  }
+}
+
+// 다크 모드 명시적 스타일 (우선순위 확보)
+html.dark .tabulator,
+.dark .tabulator {
+  border: 1px solid var(--table-border-outline) !important;
+  
+  .tabulator-header {
+    background-color: var(--table-header-bg) !important;
+    border-bottom: 1px solid var(--table-header-border) !important;
+
+    .tabulator-col {
+      background-color: var(--table-header-bg) !important;
+      border-right: 1px solid var(--table-header-border-right) !important;
+      color: var(--table-header-text) !important;
+
+      &:hover {
+        background-color: var(--table-header-bg-hover) !important;
+      }
+    }
+  }
+
+  .tabulator-row {
+    border-bottom: 1px solid var(--table-border) !important;
+    background-color: var(--table-bg) !important;
+
+    &:hover {
+      background-color: var(--table-row-hover) !important;
+      
+      .tabulator-cell {
+        background-color: var(--table-row-hover) !important;
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: var(--table-row-even) !important;
+      
+      .tabulator-cell {
+        background: var(--table-row-even) !important;
+      }
+    }
+
+    .tabulator-cell {
+      border-right: 1px solid var(--table-border) !important;
+      color: var(--table-text) !important;
+      background: var(--table-bg) !important;
+    }
+  }
+
+  .tabulator-tableholder {
+    background-color: var(--table-bg) !important;
+    
+    .tabulator-table {
+      background-color: var(--table-bg) !important;
+    }
+  }
+  
+  // 빈 테이블 플레이스홀더
+  .tabulator-placeholder {
+    background-color: var(--table-bg) !important;
+    color: var(--table-text-secondary) !important;
+  }
+}
+
+// ==========================================
+// 정렬 아이콘 스타일
+// ==========================================
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover {
+  background: none !important;
+}
+
+// 정렬 화살표 기본 모양 - Lucide 아이콘 위쪽 화살표
+.tabulator .tabulator-header .tabulator-col .tabulator-col-sorter .tabulator-arrow {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 16px !important;
+  height: 16px !important;
+  border: none !important;
+  background: none !important;
+  position: relative;
+}
+
+// 기존 화살표 완전히 숨기기
+.tabulator .tabulator-header .tabulator-col .tabulator-col-sorter .tabulator-arrow::after {
+  display: none !important;
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-sorter .tabulator-arrow::before {
+  content: '';
+  display: inline-block !important;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m18 15-6-6-6 6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.5;
+  transition: opacity 0.2s ease, transform 0.3s ease;
+  position: absolute;
+  top: 50%;
+  right: calc(-100% + 4px);
+  transform: translate(-50%, -50%);
+}
+
+// 정렬 상태별 화살표 회전
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover .tabulator-col-sorter .tabulator-arrow::before {
+  opacity: 1;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort=none] .tabulator-col-sorter .tabulator-arrow::before {
+  opacity: 0.5;
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort=ascending] .tabulator-col-sorter .tabulator-arrow::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable[aria-sort=descending] .tabulator-col-sorter .tabulator-arrow::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+// ==========================================
+// 행 선택 및 편집 스타일
+// ==========================================
+.tabulator .tabulator-row.tabulator-selected {
+  background-color: var(--table-row-selected) !important;
+  border-left: 2px solid var(--table-row-selected-border) !important;
+  
+  &:hover {
+    background-color: var(--table-row-selected-hover) !important;
+    
+    // selected + hover 시 fixed 셀도 tr의 배경색 적용
+    .tabulator-cell.tabulator-frozen {
+      background-color: var(--table-row-selected-hover) !important;
+    }
+  }
+  
+  .tabulator-cell {
+    background-color: transparent !important;
+  }
+  
+  // fixed 셀도 selected 상태에서 tr의 배경색 적용
+  .tabulator-cell.tabulator-frozen {
+    background-color: var(--table-row-selected) !important;
+  }
+  
+  // 짝수 행이 selected일 때도 배경색 우선 적용
+  &:nth-child(even) .tabulator-cell {
+    background-color: transparent !important;
+  }
+  
+  // 짝수 행 fixed 셀도 selected 배경색 적용
+  &:nth-child(even) .tabulator-cell.tabulator-frozen {
+    background-color: var(--table-row-selected) !important;
+  }
+}
+
+.tabulator .tabulator-row.tabulator-selectable:hover {
+  background-color: var(--table-gray-100) !important;
+  cursor: pointer;
+  
+  .tabulator-cell {
+    background-color: transparent !important;
+  }
+  
+  // fixed 셀도 selectable hover 시 tr의 배경색 적용
+  .tabulator-cell.tabulator-frozen {
+    background-color: var(--table-gray-100) !important;
+  }
+  
+  // 짝수 행 fixed 셀도 selectable hover 배경색 적용
+  &:nth-child(even) .tabulator-cell.tabulator-frozen {
+    background-color: var(--table-gray-100) !important;
+  }
+}
+
+.tabulator-row .tabulator-cell.tabulator-editing {
+  border: 2px solid var(--table-edit-border) !important;
+  outline: none;
+  padding: 0 6px !important;
+  line-height: 32px !important;
+}
+
+// 다크 모드 선택된 행 스타일
+html.dark .tabulator .tabulator-row.tabulator-selected,
+.dark .tabulator .tabulator-row.tabulator-selected {
+  background-color: var(--table-row-selected) !important;
+  border-left: 2px solid var(--table-row-selected-border) !important;
+  
+  &:hover {
+    background-color: var(--table-row-selected-hover) !important;
+    
+    .tabulator-cell.tabulator-frozen {
+      background-color: var(--table-row-selected-hover) !important;
+    }
+  }
+  
+  .tabulator-cell {
+    background-color: transparent !important;
+  }
+  
+  .tabulator-cell.tabulator-frozen {
+    background-color: var(--table-row-selected) !important;
+  }
+  
+  &:nth-child(even) .tabulator-cell {
+    background-color: transparent !important;
+  }
+  
+  &:nth-child(even) .tabulator-cell.tabulator-frozen {
+    background-color: var(--table-row-selected) !important;
+  }
+}
+
+// ==========================================
+// MUI 체크박스 스타일
+// ==========================================
+.mui-checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.mui-checkbox-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mui-checkbox-input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--table-checkbox-border);
+  border-radius: 2px;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  
+  &:checked {
+    background-color: var(--table-checkbox-bg);
+    border-color: var(--table-checkbox-bg);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+  
+  &:hover {
+    border-color: var(--table-checkbox-hover);
+  }
+  
+  &:checked:hover {
+    background-color: var(--table-checkbox-hover);
+    border-color: var(--table-checkbox-hover);
+  }
+  
+  &:focus {
+    outline: 2px solid var(--table-checkbox-border);
+    outline-offset: 2px;
+    opacity: 0.5;
+  }
+}
+
+// 헤더 메뉴용 MUI 체크박스 아이콘
+.mui-checkbox-icon {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--table-checkbox-border);
+  border-radius: 4px;
+  background-color: transparent;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  flex-shrink: 0;
+  
+  &.checked {
+    background-color: var(--table-checkbox-bg);
+    border-color: var(--table-checkbox-bg);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+  
+  &.unchecked {
+    background-color: transparent;
+    border-color: var(--table-checkbox-border);
+  }
+}
+
+// 체크박스 컬럼 스타일링
+.tabulator .tabulator-header .tabulator-col[data-field="select"],
+.tabulator .tabulator-row .tabulator-cell[data-field="select"] {
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+html.dark .tabulator .tabulator-header .tabulator-col[data-field="select"]:hover,
+html.dark .tabulator .tabulator-row .tabulator-cell[data-field="select"]:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+// 체크박스 셀 상하 중앙 정렬
+.tabulator .tabulator-row .tabulator-cell[data-field="select"],
+.tabulator .tabulator-header .tabulator-col[data-field="select"],
+.tabulator .tabulator-row .tabulator-cell input[type=checkbox][aria-label="Select Row"],
+.tabulator .tabulator-header .tabulator-col input[type=checkbox][aria-label="Select All"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  line-height: 1 !important;
+}
+
+// 헤더 체크박스 컨테이너 스타일
+.tabulator .tabulator-header .tabulator-col[data-field="select"] .tabulator-col-content {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+}
+
+// 모든 헤더 컬럼 컨텐츠 높이 상하 꽉차게
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  width: 100% !important;
+  vertical-align: middle !important;
+}
+
+// 모든 헤더 컬럼 제목 홀더 폭 100%
+.tabulator .tabulator-header .tabulator-col .tabulator-col-title-holder {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  width: 100% !important;
+  padding-top: 1px;
+  padding-left: 9px;
+}
+
+// 중앙 정렬인 경우 padding 제거
+.tabulator .tabulator-header .tabulator-col[style*="text-align: center"] .tabulator-col-title-holder,
+.tabulator .tabulator-header .tabulator-col .tabulator-col-title-holder[style*="justify-content: center"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.tabulator .tabulator-header .tabulator-col[data-field="select"] .tabulator-col-title {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+}
+
+
+// <input type="checkbox"...>를 하위에 직접 가지고 있는 경우에만 패딩 제거
+.tabulator .tabulator-header .tabulator-col .tabulator-col-title-holder:has(input[type="checkbox"][aria-label="Select All"]) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-top: -1px !important;
+}
+
+// Tabulator 기본 체크박스 스타일
+.tabulator .tabulator-row .tabulator-cell input[type="checkbox"][aria-label="Select Row"],
+.tabulator .tabulator-header .tabulator-col input[type="checkbox"][aria-label="Select All"],
+.select-all-checkbox {
+  height: 18px !important;
+  width: 18px !important;
+  line-height: 1 !important;
+  margin:0 auto !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+// ==========================================
+// 컨텍스트 메뉴 스타일
+// ==========================================
+.tabulator-menu {
+  background: var(--table-menu-bg) !important;
+  border: 1px solid var(--table-menu-border) !important;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  padding: 4px 0;
+  min-width: 200px;
+  z-index: 1000;
+  
+  .tabulator-menu-item {
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--table-menu-text) !important;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+    &:hover {
+      background-color: var(--table-menu-hover) !important;
+    }
+    
+    &.tabulator-menu-item-separator {
+      height: 1px;
+      background-color: var(--table-menu-separator) !important;
+      margin: 0;
+      padding: 0;
+      cursor: default;
+      
+      &:hover {
+        background-color: var(--table-menu-separator) !important;
+      }
+    }
+    
+    &.tabulator-menu-item-disabled {
+      color: var(--table-menu-disabled) !important;
+      cursor: not-allowed;
+      
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+    
+    // span 요소들의 상하 정렬 가운데
+    span {
+      display: flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-right:0 !important;
+    }
+  }
+  
+  // 서브메뉴 스타일링
+  .tabulator-menu-submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: var(--table-menu-bg) !important;
+    border: 1px solid var(--table-menu-border) !important;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 4px 0;
+    min-width: 120px;
+    z-index: 1001;
+  }
+}
+
+// 다크 모드 메뉴 스타일
+html.dark .tabulator-menu,
+.dark .tabulator-menu {
+  background: var(--table-menu-bg) !important;
+  border: 1px solid var(--table-menu-border) !important;
+  
+  .tabulator-menu-item {
+    color: var(--table-menu-text) !important;
+    
+    &:hover {
+      background-color: var(--table-menu-hover) !important;
+    }
+    
+    &.tabulator-menu-item-separator {
+      background-color: var(--table-menu-separator) !important;
+    }
+    
+    &.tabulator-menu-item-disabled {
+      color: var(--table-menu-disabled) !important;
+    }
+  }
+  
+  .tabulator-menu-submenu {
+    background: var(--table-menu-bg) !important;
+    border: 1px solid var(--table-menu-border) !important;
+  }
+}
+
+// 헤더 팝업 버튼 패딩 오버라이드
+.tabulator-header-popup-button {
+  padding: 0 !important;
+  opacity: 0.2;
+  transition: opacity 0.2s ease;
+  margin-left:-6px !important;
+  position: absolute !important;
+  left: 4px !important;
+  &:hover {
+    opacity: 1 !important;
+  }
+}
+
+// ==========================================
+// 테이블 상태별 스타일
+// ==========================================
+.table-loading .tabulator-table {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.table-empty .tabulator-table .tabulator-placeholder {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--table-text-secondary) !important;
+  font-size: 12px;
+  background-color: var(--table-bg) !important;
+}
+
+// 다크 모드 플레이스홀더
+html.dark .tabulator-placeholder,
+.dark .tabulator-placeholder {
+  background-color: var(--table-bg) !important;
+  color: var(--table-text-secondary) !important;
+}
+
+// ==========================================
+// 테이블 페이지네이션 스타일
+// ==========================================
+.sample-table-container select {
+  &:focus,
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+// ==========================================
+// 컬럼 그룹 스타일
+// ==========================================
+.tabulator .tabulator-header .tabulator-col.tabulator-col-group > .tabulator-col-group-cols {
+  border-right: 1px solid var(--table-header-border-right) !important;
+  border-top: 1px solid var(--table-header-border-right) !important;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-col-group > .tabulator-col-group-cols:last-child {
+  border-right: 0 !important;
+}
+
+// 컬럼 그룹 헤더 높이 조정
+.tabulator .tabulator-header .tabulator-col.tabulator-col-group {
+  height: auto !important;
+  padding-top: 0 !important;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-col-group .tabulator-col-content {
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.tabulator .tabulator-header .tabulator-col:hover {
+  background-color: var(--table-header-bg-hover);
+}
+
+// ==========================================
+// 커스텀 에디터 스타일
+// ==========================================
+.table-editor-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
+.date-editor-wrapper {
+  flex-direction: column;
+  align-items: stretch;
+  
+  .table-editor-input {
+    flex: 1;
+  }
+}
+
+.table-editor-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 4px 24px 4px 4px;
+  margin: 0;
+  background: transparent;
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+  color: var(--table-text);
+}
+
+.table-editor-error {
+  position: fixed;
+  background-color: var(--table-error-bg);
+  color: var(--table-error-text);
+  padding: 4px 8px;
+  font-size: 11px;
+  border: 1px solid var(--table-error-border);
+  border-radius: 4px;
+  z-index: 10000;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+.table-editor-select-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.table-editor-select {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0 24px 0 4px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  min-height: 100%;
+  font-size: 13px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  appearance: none;
+  vertical-align: middle;
+  color: var(--table-text);
+}
+
+.table-select-arrow-icon {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--table-icon-color);
+  pointer-events: none;
+  transition: transform 0.2s ease;
+  
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  &.open {
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+
+.table-search-icon {
+  position: absolute;
+  right: 4px;
+  color: var(--table-icon-color);
+  cursor: pointer;
+  padding: 2px;
+  transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+
+  &:hover {
+    color: var(--table-icon-hover);
+  }
+}
+
+// ==========================================
+// 보기 모드 셀 레이아웃
+// ==========================================
+.cell-with-search-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cell-with-search-hint .cell-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 편집 전 힌트 아이콘(비활성 느낌) */
+.table-search-icon.hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  opacity: 0.45;
+  pointer-events: none;
+  color: var(--table-icon-hint);
+}
+
+// 고정 컬럼 border 스타일 (헤더)
+.tabulator .tabulator-header .tabulator-col.tabulator-frozen.tabulator-frozen-left {
+  border-right: 1px solid var(--table-frozen-border) !important;
+  background-color: var(--table-header-bg) !important;
+  z-index: 11;
+  position: relative;
+  
+  &:hover {
+    background-color: var(--table-header-bg-hover) !important;
+    z-index: 12 !important;
+  }
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-frozen.tabulator-frozen-right {
+  border-left: 1px solid var(--table-frozen-border) !important;
+  background-color: var(--table-header-bg) !important;
+  z-index: 11;
+  position: relative;
+  
+  &:hover {
+    background-color: var(--table-header-bg-hover) !important;
+    z-index: 12 !important;
+  }
+}
+
+// 고정 컬럼 border 스타일 (바디 셀)
+.tabulator-row .tabulator-cell.tabulator-frozen.tabulator-frozen-left {
+  border-right: 1px solid var(--table-frozen-border) !important;
+  background: var(--table-bg) !important;
+  z-index: 10;
+  position: relative;
+}
+
+.tabulator-row .tabulator-cell.tabulator-frozen.tabulator-frozen-right {
+  border-left: 1px solid var(--table-frozen-border) !important;
+  background: var(--table-bg) !important;
+  z-index: 10;
+  position: relative;
+}
+
+// 짝수 행의 fixed 셀은 배경색 유지
+.tabulator-row:nth-child(even) .tabulator-cell.tabulator-frozen.tabulator-frozen-left,
+.tabulator-row:nth-child(even) .tabulator-cell.tabulator-frozen.tabulator-frozen-right {
+  background: var(--table-row-even) !important;
+}
+
+// 다크 모드 고정 컬럼 스타일
+html.dark .tabulator .tabulator-header .tabulator-col.tabulator-frozen,
+.dark .tabulator .tabulator-header .tabulator-col.tabulator-frozen {
+  background-color: var(--table-header-bg) !important;
+  border-color: var(--table-frozen-border) !important;
+  
+  &:hover {
+    background-color: var(--table-header-bg-hover) !important;
+  }
+}
+
+html.dark .tabulator-row .tabulator-cell.tabulator-frozen,
+.dark .tabulator-row .tabulator-cell.tabulator-frozen {
+  background: var(--table-bg) !important;
+  border-color: var(--table-frozen-border) !important;
+}
+
+html.dark .tabulator-row:nth-child(even) .tabulator-cell.tabulator-frozen,
+.dark .tabulator-row:nth-child(even) .tabulator-cell.tabulator-frozen {
+  background: var(--table-row-even) !important;
+}

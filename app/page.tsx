@@ -37,6 +37,7 @@ import { AccordionSection } from "./components/ui-sections/AccordionSection";
 import { AlertDialogSection } from "./components/ui-sections/AlertDialogSection";
 import { DatePickerSection } from "./components/ui-sections/DatePickerSection";
 import { Sidebar } from "./components/common/Sidebar";
+import { SampleTable } from "./components/table";
 import {
   getRadioColorClasses,
   getCheckboxColorClasses,
@@ -76,6 +77,7 @@ export default function Dashboard() {
   const [isCollapsibleOpen, setIsCollapsibleOpen] = React.useState(false);
   const [isColorPaletteOpen, setIsColorPaletteOpen] = React.useState(false);
   const [isIconLibraryOpen, setIsIconLibraryOpen] = React.useState(false);
+  const [isTableOpen, setIsTableOpen] = React.useState(false);
   const [isSwitchChecked, setIsSwitchChecked] = React.useState(false);
   const [toastOpen, setToastOpen] = React.useState(false);
   const [copyToastOpen, setCopyToastOpen] = React.useState(false);
@@ -1451,6 +1453,33 @@ export default function Dashboard() {
                           코드가 복사되었습니다
                         </Toast.Title>
                       </Toast.Root>
+                    </div>
+                  </Collapsible.Content>
+                </Collapsible.Root>
+              </Card>
+
+              {/* Table (Tabulator) */}
+              <Card title="">
+                <Collapsible.Root open={isTableOpen} onOpenChange={setIsTableOpen}>
+                  <Collapsible.Trigger asChild>
+                    <button className="w-full flex items-center justify-between h-[32px] text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+                      <span className="text-lg font-semibold">Table (Tabulator)</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm">{isTableOpen ? "접기" : "펼치기"}</span>
+                        <svg
+                          className={`w-4 h-4 transition-transform ${isTableOpen ? "rotate-180" : ""}`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                    </button>
+                  </Collapsible.Trigger>
+                  <Collapsible.Content className="data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden">
+                    <div className="pt-3">
+                      <SampleTable height={600} />
                     </div>
                   </Collapsible.Content>
                 </Collapsible.Root>
