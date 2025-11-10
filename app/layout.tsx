@@ -26,11 +26,19 @@ export default function RootLayout({
               (function() {
                 try {
                   var theme;
+                  var colorTheme;
                   try {
                     theme = localStorage.getItem("theme");
+                    colorTheme = localStorage.getItem("colorTheme") || "blue";
                   } catch (e) {
                     theme = null;
+                    colorTheme = "blue";
                   }
+                  
+                  // 컬러 테마 설정
+                  document.documentElement.setAttribute("data-color-theme", colorTheme);
+                  
+                  // 테마 설정
                   if (theme === "dark") {
                     document.documentElement.classList.add("dark");
                     document.documentElement.style.colorScheme = "dark";
@@ -53,6 +61,7 @@ export default function RootLayout({
                 } catch (e) {
                   document.documentElement.classList.remove("dark");
                   document.documentElement.style.colorScheme = "light";
+                  document.documentElement.setAttribute("data-color-theme", "blue");
                 }
               })();
             `,
