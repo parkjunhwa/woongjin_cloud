@@ -221,14 +221,14 @@ export default function Login2Page() {
       <div 
         className="hidden lg:flex lg:w-[calc(100%-600px)] bg-cover bg-center bg-no-repeat relative"
         style={{ 
-          backgroundImage: "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'), linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          backgroundImage: "url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'), linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)",
           backgroundSize: "cover, cover",
           backgroundPosition: "center, center"
         }}
       >
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="relative z-10 flex items-center justify-center w-full p-8">
-          <div className="text-white">
+          <div className="text-white dark:text-white">
             <h2 className="text-3xl font-bold mb-4">웅진클라우드</h2>
             <p className="text-lg opacity-90">차세대 IT 솔루션으로 비즈니스를 혁신하세요</p>
           </div>
