@@ -3249,6 +3249,7 @@ export default function Dashboard() {
                         { radius: "small", className: "rounded-sm" },
                         { radius: "medium", className: "rounded-md" },
                         { radius: "large", className: "rounded-lg" },
+                        { radius: "full", className: "rounded-full" },
                       ].map(({ radius, className }) => {
                         const checkboxColorClasses = getCheckboxColorClasses(colorTheme);
                         return (
