@@ -103,13 +103,6 @@ $isSidebarCollapsed = isSidebarCollapsed();
       <main id="main-content" class="w-full px-6 py-6" role="main">
         <div class="w-full flex flex-col gap-3 mb-3">
           
-          <!-- 환영 메시지 -->
-          <?php 
-          renderCard(
-            'PHP 버전 대시보드',
-            '<p class="text-gray-600 dark:text-gray-400">React/Next.js 버전을 PHP로 변환한 버전입니다.</p>'
-          );
-          ?>
           
           <!-- 현재 설정 표시 -->
           <?php
@@ -122,13 +115,6 @@ $isSidebarCollapsed = isSidebarCollapsed();
           renderCard('현재 설정', $settingsContent);
           ?>
           
-          <!-- 테스트 카드들 -->
-          <?php 
-          renderCard(
-            'Card 컴포넌트 테스트',
-            '<p>이것은 PHP include 방식으로 구현된 Card 컴포넌트입니다.</p>'
-          );
-          ?>
           
         </div>
       </main>
