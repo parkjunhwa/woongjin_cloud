@@ -6,6 +6,7 @@
   justify-content: center !important;
   height: 32px !important; // h-7 = 1.75rem = 28px
   align-items: center !important;
+
   .rdp-button_previous,
   .rdp-button_next {
     align-self: center !important;
@@ -24,7 +25,7 @@
   height: 32px !important;
   width: 28px !important;
   line-height: 1 !important;
-  
+
   svg {
     display: block !important;
     margin: 0 !important;
@@ -79,34 +80,36 @@
 .rdp-day.rdp-day-sunday,
 .rdp-day-sunday,
 .rdp-day-sunday .rdp-day,
-.rdp-day-sunday button,
-button.rdp-day.rdp-day-sunday {
-  color: #ef4444 !important; // red-500
+.rdp-day-sunday button {
+  color: #ef4444; // red-500
 }
 
-// 토요일 - lightblue 계열 (라이트 모드)
 .rdp-day.rdp-day-saturday,
 .rdp-day-saturday,
 .rdp-day-saturday .rdp-day,
-.rdp-day-saturday button,
-button.rdp-day.rdp-day-saturday {
-  color: rgb(86, 97, 255) !important; // CSS named color, 밝은 블루
+.rdp-day-saturday button {
+  color: #38bdf8; // blue-300
 }
 
-// 다크 모드 주말 색상
 html.dark .rdp-day.rdp-day-sunday,
 html.dark .rdp-day-sunday,
 html.dark .rdp-day-sunday .rdp-day,
-html.dark .rdp-day-sunday button,
-html.dark button.rdp-day.rdp-day-sunday {
-  color: #f87171 !important; // red-400 (다크 모드에서 더 밝게)
+html.dark .rdp-day-sunday button {
+  color: #f87171; // red-400 (다크 모드에서 더 밝게)
 }
 
 html.dark .rdp-day.rdp-day-saturday,
 html.dark .rdp-day-saturday,
 html.dark .rdp-day-saturday .rdp-day,
-html.dark .rdp-day-saturday button,
-html.dark button.rdp-day.rdp-day-saturday {
-  color: #93c5fd !important; // blue-300 (다크 모드에서 가독성 확보)
+html.dark .rdp-day-saturday button {
+  color: #38bdf8; // blue-300
 }
 
+
+// 주말(토/일)에 선택된 시작일 또는 종료일은 글자색을 흰색으로 고정 (다크모드 포함)
+.rdp-day-saturday.rdp-range_start .rdp-day_button,
+.rdp-day-sunday.rdp-range_start .rdp-day_button,
+.rdp-day-saturday.rdp-range_end .rdp-day_button,
+.rdp-day-sunday.rdp-range_end .rdp-day_button {
+  color: #ffffff !important;
+}
