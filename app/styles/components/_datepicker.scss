@@ -84,13 +84,13 @@ button.rdp-day.rdp-day-sunday {
   color: #ef4444 !important; // red-500
 }
 
-// 토요일 - blue-500 (라이트 모드, 항상 blue로 고정)
+// 토요일 - lightblue 계열 (라이트 모드)
 .rdp-day.rdp-day-saturday,
 .rdp-day-saturday,
 .rdp-day-saturday .rdp-day,
 .rdp-day-saturday button,
 button.rdp-day.rdp-day-saturday {
-  color: #3b82f6 !important; // blue-500 고정
+  color: rgb(86, 97, 255) !important; // CSS named color, 밝은 블루
 }
 
 // 다크 모드 주말 색상
@@ -107,6 +107,6 @@ html.dark .rdp-day-saturday,
 html.dark .rdp-day-saturday .rdp-day,
 html.dark .rdp-day-saturday button,
 html.dark button.rdp-day.rdp-day-saturday {
-  color: #60a5fa !important; // blue-400 (다크 모드에서 더 밝게)
+  color: #93c5fd !important; // blue-300 (다크 모드에서 가독성 확보)
 }
 
