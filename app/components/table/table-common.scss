@@ -473,10 +473,14 @@ html.dark .tabulator,
 }
 
 .tabulator-row .tabulator-cell.tabulator-editing {
-  border: 2px solid var(--table-edit-border) !important;
+  box-shadow: 0 0 0 2px var(--table-edit-border) inset !important;
   outline: none;
   padding: 0 6px !important;
   line-height: 32px !important;
+  overflow: visible !important;
+  position: relative;
+  z-index: 20 !important;
+  box-sizing: border-box;
 }
 
 // 다크 모드 선택된 행 스타일
@@ -884,6 +888,8 @@ html.dark .tabulator-placeholder,
   position: relative;
   width: 100%;
   min-height: 100%;
+  overflow: visible;
+  box-sizing: border-box;
 }
 
 .date-editor-wrapper {
@@ -898,7 +904,7 @@ html.dark .tabulator-placeholder,
 .table-editor-input {
   width: 100%;
   border: none;
-  outline: none;
+  outline: none !important;
   padding: 4px 24px 4px 4px;
   margin: 0;
   background: transparent;
@@ -908,6 +914,17 @@ html.dark .tabulator-placeholder,
   box-sizing: border-box;
   transition: border-color 0.2s ease;
   color: var(--table-text);
+  overflow: hidden;
+  
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
 }
 
 .table-editor-error {
@@ -933,12 +950,14 @@ html.dark .tabulator-placeholder,
   position: relative;
   display: flex;
   align-items: center;
+  overflow: visible;
+  box-sizing: border-box;
 }
 
 .table-editor-select {
   width: 100%;
   border: none;
-  outline: none;
+  outline: none !important;
   padding: 0 24px 0 4px;
   margin: 0;
   background: transparent;
@@ -950,6 +969,17 @@ html.dark .tabulator-placeholder,
   appearance: none;
   vertical-align: middle;
   color: var(--table-text);
+  overflow: hidden;
+  
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
 }
 
 .table-select-arrow-icon {
