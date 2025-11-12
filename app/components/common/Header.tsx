@@ -588,11 +588,11 @@ export const Header = function Header({}: HeaderProps) {
                         </label>
                         <input
                           id="header-search-input"
-                          type="search"
+                          type="text"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
                           placeholder="검색어를 입력하세요"
-                          className="w-full h-[32px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 pl-4 pr-10 text-sm text-left focus:outline-none text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                          className="w-full h-[32px] rounded-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 pl-4 pr-10 text-sm text-left text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           autoFocus
                           aria-label="검색어 입력"
                         />
