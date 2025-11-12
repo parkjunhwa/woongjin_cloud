@@ -4172,7 +4172,7 @@ export default function Dashboard() {
                       아래첨자: H<sub>2</sub>O, CO<sub>2</sub>, log<sub>10</sub>
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      특수문자: © 2024, ® 등록상표, ™ 상표, € 100, £ 50, ¥ 1000, § 1, ¶ 1, †, ‡
+                      특수문자: © 2026, ® 등록상표, ™ 상표, € 100, £ 50, ¥ 1000, § 1, ¶ 1, †, ‡
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       이모지: 😀 🎉 ⭐ 🚀 💡 🎨 ✨ 🔥 💯

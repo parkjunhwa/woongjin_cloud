@@ -64,7 +64,7 @@ $navItems = [
   </nav>
 
   <div class="sidebar-footer">
-    <div class="sidebar-footer-text">© 2024 웅진클라우드</div>
+    <div class="sidebar-footer-text">© 2026 웅진클라우드</div>
   </div>
 </aside>
 

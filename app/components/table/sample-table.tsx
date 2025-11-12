@@ -258,7 +258,7 @@ export default function SampleTable({
     input.type = 'text'
     input.value = String(cell.getValue() ?? '')
     input.className = 'table-editor-input'
-    input.placeholder = 'yyyy-mm-dd (예: 2024-01-15)'
+    input.placeholder = 'yyyy-mm-dd (예: 2026-01-15)'
 
     wrapper.appendChild(input)
 
@@ -453,7 +453,7 @@ export default function SampleTable({
     const categories = ['개발', '디자인', '마케팅', '영업', '관리', '고객지원', '품질관리', '운영']
 
     for (let i = 1; i <= 50; i++) {
-      const randomDate = new Date(2024, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1)
+      const randomDate = new Date(2026, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1)
       // yyyy-mm-dd 형식으로 변환
       const year = randomDate.getFullYear()
       const month = String(randomDate.getMonth() + 1).padStart(2, '0')

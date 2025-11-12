@@ -799,7 +799,7 @@ export const Sidebar = React.memo(function Sidebar({ }: SidebarProps) {
         {(!isCollapsed || (isMobileOpen !== undefined && isMobileOpen)) && (
           <div className="mt-auto p-4 border-t border-gray-200 dark:border-gray-800">
             <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
-              © 2024 웅진클라우드
+              © 2026 웅진클라우드
             </div>
           </div>
         )}
