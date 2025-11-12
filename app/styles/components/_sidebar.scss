@@ -15,6 +15,9 @@
     // 모바일에서는 기본적으로 숨김 (Tailwind의 translate-x-full과 함께 사용)
     // Tailwind 클래스가 우선 적용되므로 SCSS transform은 제거
     // 모바일에서 열릴 때는 Tailwind의 translate-x-0이 적용됨
+    position: fixed;
+    top: 0;
+    height: 100vh;
     
     // 모바일에서 사이드바가 열릴 때 항상 펼쳐진 상태로 표시
     &[class*="translate-x-0"] {

@@ -448,11 +448,16 @@ html.dark .border-blue-950,
   .sidebar {
     transform: translateX(-100%);
     width: 100%;
-    max-width: 100%;
+    position: fixed;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh;
   }
   
   .sidebar.mobile-open {
     transform: translateX(0);
+    top: 0 !important;
+    left: 0 !important;
   }
 }
 
